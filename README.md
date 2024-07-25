@@ -38,7 +38,7 @@ Or manually by modifying `composer.json` file:
 And run `composer install`
 
 ## Demo
-The "[Basic Laravel Admin Penel](https://github.com/balajidharma/basic-laravel-admin-panel)" starter kit come with Laravel Menu
+The "[Basic Laravel Admin Penel](https://github.com/balajidharma/basic-laravel-admin-panel)" starter kit come with Laravel Form Builder
 
 
 ## Quick start
