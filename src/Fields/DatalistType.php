@@ -2,14 +2,15 @@
 
 namespace BalajiDharma\LaravelFormBuilder\Fields;
 
-class DatalistType extends FormField {
+class DatalistType extends FormField
+{
+    protected function getTemplate()
+    {
+        return 'datalist';
+    }
 
-	protected function getTemplate() {
-		return 'datalist';
-	}
-
-	public function getAllAttributes() {
-		return [];
-	}
-
+    public function getAllAttributes()
+    {
+        return [];
+    }
 }

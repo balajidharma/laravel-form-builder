@@ -3,22 +3,22 @@
 use BalajiDharma\LaravelFormBuilder\Fields\FormField;
 use BalajiDharma\LaravelFormBuilder\Form;
 
-if(!function_exists('getFormBuilderViewPath'))
-{
+if (! function_exists('getFormBuilderViewPath')) {
     function getFormBuilderViewPath($fileName)
     {
-        $p = explode('.',$fileName);
+        $p = explode('.', $fileName);
         $c = count($p);
-        if($c>2 || $p[$c-1]!='php')
+        if ($c > 2 || $p[$c - 1] != 'php') {
             throw new Exception('You should use only *.php files with this function');
+        }
 
         $path = base_path('resources/views/vendor/laravel-form-builder/'.$fileName);
+
         return file_exists($path) ? $path : __DIR__.'/../resources/views/'.$fileName;
     }
 }
 
-if(!function_exists('errorBlockPath'))
-{
+if (! function_exists('errorBlockPath')) {
 
     function errorBlockPath()
     {
@@ -27,8 +27,7 @@ if(!function_exists('errorBlockPath'))
 
 }
 
-if(!function_exists('helpBlockPath'))
-{
+if (! function_exists('helpBlockPath')) {
 
     function helpBlockPath()
     {
@@ -37,7 +36,7 @@ if(!function_exists('helpBlockPath'))
 
 }
 
-if (!function_exists('form')) {
+if (! function_exists('form')) {
 
     function form(Form $form, array $options = [])
     {
@@ -46,7 +45,7 @@ if (!function_exists('form')) {
 
 }
 
-if (!function_exists('form_start')) {
+if (! function_exists('form_start')) {
 
     function form_start(Form $form, array $options = [])
     {
@@ -55,7 +54,7 @@ if (!function_exists('form_start')) {
 
 }
 
-if (!function_exists('form_end')) {
+if (! function_exists('form_end')) {
 
     function form_end(Form $form, $showFields = true)
     {
@@ -64,7 +63,7 @@ if (!function_exists('form_end')) {
 
 }
 
-if (!function_exists('form_rest')) {
+if (! function_exists('form_rest')) {
 
     function form_rest(Form $form)
     {
@@ -73,7 +72,7 @@ if (!function_exists('form_rest')) {
 
 }
 
-if (!function_exists('form_until')) {
+if (! function_exists('form_until')) {
 
     function form_until(Form $form, $field_name)
     {
@@ -82,7 +81,7 @@ if (!function_exists('form_until')) {
 
 }
 
-if (!function_exists('form_row')) {
+if (! function_exists('form_row')) {
 
     function form_row(FormField $formField, array $options = [])
     {
@@ -91,16 +90,16 @@ if (!function_exists('form_row')) {
 
 }
 
-if (!function_exists('form_rows')) {
+if (! function_exists('form_rows')) {
     function form_rows(Form $form, array $fields, array $options = [])
     {
-        return implode(array_map(function($field) use ($form, $options) {
+        return implode(array_map(function ($field) use ($form, $options) {
             return $form->has($field) ? $form->getField($field)->render($options) : '';
         }, $fields));
     }
 }
 
-if (!function_exists('form_label')) {
+if (! function_exists('form_label')) {
 
     function form_label(FormField $formField, array $options = [])
     {
@@ -109,7 +108,7 @@ if (!function_exists('form_label')) {
 
 }
 
-if (!function_exists('form_widget')) {
+if (! function_exists('form_widget')) {
 
     function form_widget(FormField $formField, array $options = [])
     {
@@ -118,7 +117,7 @@ if (!function_exists('form_widget')) {
 
 }
 
-if (!function_exists('form_errors')) {
+if (! function_exists('form_errors')) {
 
     function form_errors(FormField $formField, array $options = [])
     {
@@ -127,7 +126,7 @@ if (!function_exists('form_errors')) {
 
 }
 
-if (!function_exists('form_fields')) {
+if (! function_exists('form_fields')) {
 
     function form_fields(Form $form, array $options = [])
     {

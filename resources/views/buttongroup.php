@@ -1,20 +1,20 @@
-<?php if ($options['wrapper'] !== false): ?>
+<?php if ($options['wrapper'] !== false) { ?>
     <div <?= $options['wrapperAttrs'] ?> >
-<?php endif; ?>
+<?php } ?>
 
-    <?php if ( !$options['splitted'] ): ?>
+    <?php if (! $options['splitted']) { ?>
         <div class="btn-group btn-group-<?= $options['size'] ?>">
-    <?php endif; ?>
+    <?php } ?>
 
-        <?php foreach($options['buttons'] as $button): ?>
+        <?php foreach ($options['buttons'] as $button) { ?>
             <?= Form::button($button['label'], $button['attr']) ?>
-        <?php endforeach; ?>
+        <?php } ?>
 
-    <?php if ( !$options['splitted'] ): ?>
+    <?php if (! $options['splitted']) { ?>
         </div>
-    <?php endif; ?>
+    <?php } ?>
 
 
-<?php if ($options['wrapper'] !== false): ?>
+<?php if ($options['wrapper'] !== false) { ?>
     </div>
-<?php endif; ?>
+<?php } ?>

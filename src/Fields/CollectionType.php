@@ -14,7 +14,7 @@ class CollectionType extends ParentType
     protected $proto;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $valueProperty = 'data';
 
@@ -27,7 +27,7 @@ class CollectionType extends ParentType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getDefaults()
     {
@@ -48,6 +48,7 @@ class CollectionType extends ParentType
      * Get the prototype object.
      *
      * @return FormField
+     *
      * @throws \Exception
      */
     public function prototype()
@@ -55,7 +56,7 @@ class CollectionType extends ParentType
 
         if ($this->getOption('prototype') === false) {
             throw new \Exception(
-                'Prototype for collection field [' . $this->name .'] is disabled.'
+                'Prototype for collection field ['.$this->name.'] is disabled.'
             );
         }
 
@@ -63,7 +64,7 @@ class CollectionType extends ParentType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAllAttributes()
     {
@@ -72,7 +73,7 @@ class CollectionType extends ParentType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function createChildren()
     {
@@ -88,7 +89,7 @@ class CollectionType extends ParentType
             $fieldType = $this->formHelper->getFieldType($type);
         } catch (\Exception $e) {
             throw new \Exception(
-                'Collection field ['.$this->name.'] requires [type] option'. "\n\n".
+                'Collection field ['.$this->name.'] requires [type] option'."\n\n".
                 $e->getMessage()
             );
         }
@@ -96,14 +97,12 @@ class CollectionType extends ParentType
         $data = $this->getOption($this->valueProperty, []);
 
         // If no value is provided, get values from current request.
-        if (!is_null($data) && count($data) === 0) {
+        if (! is_null($data) && count($data) === 0) {
             if ($this->getOption('prefer_input')) {
                 $data = $this->formatInputIntoModels($currentInput);
-            }
-            elseif ($this->getOption('empty_row')) {
+            } elseif ($this->getOption('empty_row')) {
                 $data = $this->formatInputIntoModels(array_slice($currentInput, 0, 1, true));
-            }
-            else {
+            } else {
                 $data = [];
             }
         }
@@ -128,7 +127,7 @@ class CollectionType extends ParentType
             $this->generatePrototype(clone $field);
         }
 
-        if (!$data || empty($data)) {
+        if (! $data || empty($data)) {
             if ($this->getOption('empty_row')) {
                 return $this->children[] = $this->setupChild(clone $field, '[0]', $this->makeEmptyRowValue());
             }
@@ -136,7 +135,7 @@ class CollectionType extends ParentType
             return $this->children = [];
         }
 
-        if (!is_array($data) && !$data instanceof \Traversable) {
+        if (! is_array($data) && ! $data instanceof \Traversable) {
             throw new \Exception(
                 'Data for collection field ['.$this->name.'] must be iterable.'
             );
@@ -150,6 +149,7 @@ class CollectionType extends ParentType
     protected function makeEmptyRowValue()
     {
         $empty = $this->getOption('empty_row');
+
         return $empty === true ? $this->makeNewEmptyModel() : $empty;
     }
 
@@ -160,7 +160,7 @@ class CollectionType extends ParentType
 
     protected function formatInputIntoModels(array $input, array $originalData = [])
     {
-        if (!$this->getOption('empty_model')) {
+        if (! $this->getOption('empty_model')) {
             return $input;
         }
 
@@ -168,8 +168,7 @@ class CollectionType extends ParentType
         foreach ($input as $k => $inputItem) {
             if (is_array($inputItem)) {
                 $newData[$k] = tap($originalData[$k] ?? $this->makeNewEmptyModel())->forceFill($inputItem);
-            }
-            else {
+            } else {
                 $newData[$k] = $inputItem;
             }
         }
@@ -180,9 +179,7 @@ class CollectionType extends ParentType
     /**
      * Set up a single child element for a collection.
      *
-     * @param FormField $field
-     * @param           $name
-     * @param null      $value
+     * @param  null  $value
      * @return FormField
      */
     protected function setupChild(FormField $field, $name, $value = null)
@@ -197,7 +194,7 @@ class CollectionType extends ParentType
         $field->setName($newFieldName);
         $field->setOptions($firstFieldOptions);
 
-        if ($value && !$field instanceof ChildFormType) {
+        if ($value && ! $field instanceof ChildFormType) {
             $value = $this->getModelValueAttribute(
                 $value,
                 $this->getOption('property')
@@ -206,14 +203,12 @@ class CollectionType extends ParentType
 
         $field->setValue($value);
 
-
         return $field;
     }
 
     /**
      * Generate prototype for regular form field.
      *
-     * @param FormField $field
      * @return void
      */
     protected function generatePrototype(FormField $field)
@@ -240,18 +235,17 @@ class CollectionType extends ParentType
      */
     protected function getPrototypeName()
     {
-        return '[' . $this->getOption('prototype_name') . ']';
+        return '['.$this->getOption('prototype_name').']';
     }
 
     /**
      * Prepare collection for prototype by adding prototype as child.
      *
-     * @param FormField $field
      * @return void
      */
     public function preparePrototype(FormField $field)
     {
-        if (!$field->getOption('is_prototype')) {
+        if (! $field->getOption('is_prototype')) {
             throw new \InvalidArgumentException(
                 'Field ['.$field->getRealName().'] is not a valid prototype object.'
             );

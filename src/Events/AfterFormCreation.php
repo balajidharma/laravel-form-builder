@@ -16,10 +16,10 @@ class AfterFormCreation
     /**
      * Create a new after form creation instance.
      *
-     * @param  Form $form
      * @return void
      */
-    public function __construct(Form $form) {
+    public function __construct(Form $form)
+    {
         $this->form = $form;
     }
 
@@ -28,7 +28,8 @@ class AfterFormCreation
      *
      * @return Form
      */
-    public function getForm() {
+    public function getForm()
+    {
         return $this->form;
     }
 }

@@ -1,19 +1,18 @@
 <?php
 
-namespace  BalajiDharma\LaravelFormBuilder\Fields;
+namespace BalajiDharma\LaravelFormBuilder\Fields;
 
 class CheckboxType extends FormField
 {
-
     const DEFAULT_VALUE = 1;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected $valueProperty = 'checked';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getTemplate()
     {
@@ -21,14 +20,14 @@ class CheckboxType extends FormField
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDefaults()
     {
         return [
             'attr' => ['class' => null, 'id' => $this->getName()],
             'value' => self::DEFAULT_VALUE,
-            'checked' => null
+            'checked' => null,
         ];
     }
 

@@ -2,12 +2,11 @@
 
 namespace BalajiDharma\LaravelFormBuilder\Fields;
 
-use Illuminate\Support\Arr;
 use BalajiDharma\LaravelFormBuilder\Form;
+use Illuminate\Support\Arr;
 
 abstract class ParentType extends FormField
 {
-
     /**
      * @var FormField[]
      */
@@ -21,10 +20,6 @@ abstract class ParentType extends FormField
     abstract protected function createChildren();
 
     /**
-     * @param       $name
-     * @param       $type
-     * @param Form  $parent
-     * @param array $options
      * @return void
      */
     public function __construct($name, $type, Form $parent, array $options = [])
@@ -39,8 +34,7 @@ abstract class ParentType extends FormField
     }
 
     /**
-     * @param  mixed $val
-     *
+     * @param  mixed  $val
      * @return ChildFormType
      */
     public function setValue($val)
@@ -57,6 +51,7 @@ abstract class ParentType extends FormField
     public function render(array $options = [], $showLabel = true, $showField = true, $showError = true)
     {
         $options['children'] = $this->children;
+
         return parent::render($options, $showLabel, $showField, $showError);
     }
 
@@ -95,7 +90,7 @@ abstract class ParentType extends FormField
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setOption($name, $value)
     {
@@ -111,7 +106,7 @@ abstract class ParentType extends FormField
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setOptions($options)
     {
@@ -127,7 +122,7 @@ abstract class ParentType extends FormField
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isRendered()
     {
@@ -143,7 +138,7 @@ abstract class ParentType extends FormField
     /**
      * Get child dynamically.
      *
-     * @param string $name
+     * @param  string  $name
      * @return FormField
      */
     public function __get($name)
@@ -171,7 +166,7 @@ abstract class ParentType extends FormField
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function disable()
     {
@@ -181,7 +176,7 @@ abstract class ParentType extends FormField
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function enable()
     {
@@ -191,7 +186,7 @@ abstract class ParentType extends FormField
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getValidationRules()
     {
@@ -204,7 +199,6 @@ abstract class ParentType extends FormField
     /**
      * Allow form-specific value alters.
      *
-     * @param  array $values
      * @return void
      */
     public function alterFieldValues(array &$values)

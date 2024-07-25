@@ -1,16 +1,14 @@
 <?php
 
-namespace  BalajiDharma\LaravelFormBuilder\Fields;
+namespace BalajiDharma\LaravelFormBuilder\Fields;
 
 class InputType extends FormField
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getTemplate()
     {
         return 'text';
     }
-
 }

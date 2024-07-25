@@ -7,15 +7,13 @@ use BalajiDharma\LaravelFormBuilder\Filters\FilterInterface;
 /**
  * Class StripNewlines
  *
- * @package BalajiDharma\LaravelFormBuilder\Filters\Collection
  * @author  Djordje Stojiljkovic <djordjestojilljkovic@gmail.com>
  */
 class StripNewlines implements FilterInterface
 {
     /**
-     * @param  mixed $value
-     * @param  array $options
-     *
+     * @param  mixed  $value
+     * @param  array  $options
      * @return mixed
      */
     public function filter($value, $options = [])

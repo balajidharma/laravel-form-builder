@@ -25,11 +25,11 @@ class AfterCollectingFieldRules
     /**
      * Create a new after field creation instance.
      *
-     * @param Form $form
-     * @param FormField $field
+     * @param  Form  $form
      * @return void
      */
-    public function __construct(FormField $field, Rules $rules) {
+    public function __construct(FormField $field, Rules $rules)
+    {
         $this->field = $field;
         $this->rules = $rules;
     }
@@ -39,7 +39,8 @@ class AfterCollectingFieldRules
      *
      * @return FormField
      */
-    public function getField() {
+    public function getField()
+    {
         return $this->field;
     }
 
@@ -48,7 +49,8 @@ class AfterCollectingFieldRules
      *
      * @return Rules
      */
-    public function getRules() {
+    public function getRules()
+    {
         return $this->rules;
     }
 }

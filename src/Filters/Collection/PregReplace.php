@@ -7,7 +7,6 @@ use BalajiDharma\LaravelFormBuilder\Filters\FilterInterface;
 /**
  * Class PregReplace
  *
- * @package BalajiDharma\LaravelFormBuilder\Filters\Collection
  * @author  Djordje Stojiljkovic <djordjestojilljkovic@gmail.com>
  */
 class PregReplace implements FilterInterface
@@ -15,21 +14,21 @@ class PregReplace implements FilterInterface
     /**
      * Pattern to match
      *
-     * @var mixed $pattern
+     * @var mixed
      */
     protected $pattern = null;
 
     /**
      * Replacement against matches.
      *
-     * @var mixed $replacement
+     * @var mixed
      */
     protected $replacement = '';
 
     /**
      * PregReplace constructor.
      *
-     * @param array $options
+     * @param  array  $options
      */
     public function __construct($options = [])
     {
@@ -45,13 +44,13 @@ class PregReplace implements FilterInterface
     /**
      * Set the match pattern for the regex being called within filter().
      *
-     * @param mixed $pattern - first arg of preg_replace
-     *
+     * @param  mixed  $pattern  - first arg of preg_replace
      * @return \BalajiDharma\LaravelFormBuilder\Filters\Collection\PregReplace
      */
     public function setPattern($pattern)
     {
         $this->pattern = $pattern;
+
         return $this;
     }
 
@@ -68,13 +67,13 @@ class PregReplace implements FilterInterface
     /**
      * Set the Replacement pattern/string for the preg_replace called in filter.
      *
-     * @param mixed $replacement - same as the second argument of preg_replace
-     *
+     * @param  mixed  $replacement  - same as the second argument of preg_replace
      * @return \BalajiDharma\LaravelFormBuilder\Filters\Collection\PregReplace
      */
     public function setReplacement($replacement)
     {
         $this->replacement = $replacement;
+
         return $this;
     }
 
@@ -89,9 +88,8 @@ class PregReplace implements FilterInterface
     }
 
     /**
-     * @param  mixed $value
-     * @param  array $options
-     *
+     * @param  mixed  $value
+     * @param  array  $options
      * @return mixed
      *
      * @throws \Exception
@@ -99,7 +97,7 @@ class PregReplace implements FilterInterface
     public function filter($value, $options = [])
     {
         if ($this->getPattern() == null) {
-            $ex = new \Exception(get_class($this) . ' does not have a valid MatchPattern set.');
+            $ex = new \Exception(get_class($this).' does not have a valid MatchPattern set.');
             throw $ex;
         }
 

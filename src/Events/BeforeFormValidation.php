@@ -2,8 +2,8 @@
 
 namespace BalajiDharma\LaravelFormBuilder\Events;
 
-use Illuminate\Contracts\Validation\Validator;
 use BalajiDharma\LaravelFormBuilder\Form;
+use Illuminate\Contracts\Validation\Validator;
 
 class BeforeFormValidation
 {
@@ -24,8 +24,6 @@ class BeforeFormValidation
     /**
      * Create a new event instance.
      *
-     * @param  Form  $form
-     * @param  Validator  $validator
      * @return void
      */
     public function __construct(Form $form, Validator $validator)

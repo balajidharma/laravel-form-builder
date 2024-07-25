@@ -26,11 +26,6 @@ class Rules
      */
     protected $messages;
 
-    /**
-     * @param array $rules
-     * @param array $attributes
-     * @param array $messages
-     */
     public function __construct(array $rules, array $attributes = [], array $messages = [])
     {
         $this->rules = $rules;
@@ -39,7 +34,7 @@ class Rules
     }
 
     /**
-     * @param string $name
+     * @param  string  $name
      * @return $this
      */
     public function setFieldName($name)
@@ -50,7 +45,7 @@ class Rules
     }
 
     /**
-     * @param string|null $fieldName
+     * @param  string|null  $fieldName
      * @return array|mixed
      */
     public function getFieldRules($fieldName = null)
@@ -58,12 +53,13 @@ class Rules
         $fieldName = $this->ensureFieldName($fieldName);
 
         $rules = $this->rules;
+
         return $rules[$fieldName] ?? [];
     }
 
     /**
-     * @param mixed $rule
-     * @param string|null $fieldName
+     * @param  mixed  $rule
+     * @param  string|null  $fieldName
      * @return void
      */
     public function addFieldRule($rule, $fieldName = null)
@@ -74,8 +70,7 @@ class Rules
     }
 
     /**
-     * @param array $rules
-     * @param string|null $fieldName
+     * @param  string|null  $fieldName
      * @return void
      */
     public function setFieldRules(array $rules, $fieldName = null)
@@ -85,15 +80,16 @@ class Rules
     }
 
     /**
-     * @param string|null $fieldName
+     * @param  string|null  $fieldName
      * @return string|null
+     *
      * @throws InvalidArgumentException
      */
     protected function ensureFieldName($fieldName)
     {
-        if (!$fieldName) {
-            if (!$this->fieldName) {
-                throw new InvalidArgumentException("Field functions on non-field Rules need explicit field name");
+        if (! $fieldName) {
+            if (! $this->fieldName) {
+                throw new InvalidArgumentException('Field functions on non-field Rules need explicit field name');
             }
 
             $fieldName = $this->fieldName;
@@ -103,7 +99,7 @@ class Rules
     }
 
     /**
-     * @param array|static $rules
+     * @param  array|static  $rules
      * @return $this
      */
     public function append($rules)
@@ -144,12 +140,12 @@ class Rules
     }
 
     /**
-     * @param array[] $rules
+     * @param  array[]  $rules
      * @return static
      */
     public static function fromArray($rules)
     {
-        if (!$rules) {
+        if (! $rules) {
             return new static([]);
         }
 

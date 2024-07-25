@@ -4,7 +4,6 @@ namespace BalajiDharma\LaravelFormBuilder\Fields;
 
 class SelectType extends FormField
 {
-
     /**
      * The name of the property that holds the value.
      *
@@ -12,8 +11,8 @@ class SelectType extends FormField
      */
     protected $valueProperty = 'selected';
 
-     /**
-     * @inheritdoc
+    /**
+     * {@inheritdoc}
      */
     protected function getTemplate()
     {
@@ -21,7 +20,7 @@ class SelectType extends FormField
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDefaults()
     {
@@ -29,7 +28,7 @@ class SelectType extends FormField
             'choices' => [],
             'option_attributes' => [],
             'empty_value' => null,
-            'selected' => null
+            'selected' => null,
         ];
     }
 }

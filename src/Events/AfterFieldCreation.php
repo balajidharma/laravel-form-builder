@@ -24,11 +24,10 @@ class AfterFieldCreation
     /**
      * Create a new after field creation instance.
      *
-     * @param Form $form
-     * @param FormField $field
      * @return void
      */
-    public function __construct(Form $form, FormField $field) {
+    public function __construct(Form $form, FormField $field)
+    {
         $this->form = $form;
         $this->field = $field;
     }
@@ -38,7 +37,8 @@ class AfterFieldCreation
      *
      * @return Form
      */
-    public function getForm() {
+    public function getForm()
+    {
         return $this->form;
     }
 
@@ -47,7 +47,8 @@ class AfterFieldCreation
      *
      * @return FormField
      */
-    public function getField() {
+    public function getField()
+    {
         return $this->field;
     }
 }

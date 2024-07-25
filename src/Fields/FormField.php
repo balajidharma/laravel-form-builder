@@ -2,19 +2,17 @@
 
 namespace BalajiDharma\LaravelFormBuilder\Fields;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Str;
 use BalajiDharma\LaravelFormBuilder\Filters\Exception\FilterAlreadyBindedException;
 use BalajiDharma\LaravelFormBuilder\Filters\FilterInterface;
 use BalajiDharma\LaravelFormBuilder\Filters\FilterResolver;
 use BalajiDharma\LaravelFormBuilder\Form;
 use BalajiDharma\LaravelFormBuilder\FormHelper;
 use BalajiDharma\LaravelFormBuilder\Rules;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 
 /**
  * Class FormField
- *
- * @package BalajiDharma\LaravelFormBuilder\Fields
  */
 abstract class FormField
 {
@@ -97,7 +95,7 @@ abstract class FormField
     /**
      * Raw/unfiltered field value.
      *
-     * @var mixed $rawValues
+     * @var mixed
      */
     protected $rawValue;
 
@@ -109,10 +107,8 @@ abstract class FormField
     protected $filtersOverride = false;
 
     /**
-     * @param string $name
-     * @param string $type
-     * @param Form $parent
-     * @param array $options
+     * @param  string  $name
+     * @param  string  $type
      */
     public function __construct($name, $type, Form $parent, array $options = [])
     {
@@ -125,7 +121,6 @@ abstract class FormField
         $this->setupValue();
         $this->initFilters();
     }
-
 
     /**
      * Setup the value of the form field.
@@ -141,10 +136,10 @@ abstract class FormField
             $this->valueClosure = $value;
         }
 
-        if (($value === null || $value instanceof \Closure) && !$isChild) {
+        if (($value === null || $value instanceof \Closure) && ! $isChild) {
             $attributeName = $this->getOption('value_property', $this->name);
             $this->setValue($this->getModelValueAttribute($this->parent->getModel(), $attributeName));
-        } elseif (!$isChild) {
+        } elseif (! $isChild) {
             $this->hasDefault = true;
         }
     }
@@ -161,16 +156,15 @@ abstract class FormField
      */
     protected function getViewTemplate()
     {
-        return $this->parent->getTemplatePrefix() . $this->getOption('template', $this->template);
+        return $this->parent->getTemplatePrefix().$this->getOption('template', $this->template);
     }
 
     /**
      * Render the field.
      *
-     * @param array $options
-     * @param bool  $showLabel
-     * @param bool  $showField
-     * @param bool  $showError
+     * @param  bool  $showLabel
+     * @param  bool  $showField
+     * @param  bool  $showError
      * @return string
      */
     public function render(array $options = [], $showLabel = true, $showField = true, $showError = true)
@@ -184,11 +178,11 @@ abstract class FormField
         }
 
         // Override default value with value
-        if (!$this->isValidValue($value) && $this->isValidValue($defaultValue)) {
+        if (! $this->isValidValue($value) && $this->isValidValue($defaultValue)) {
             $this->setOption($this->valueProperty, $defaultValue);
         }
 
-        if (!$this->needsLabel()) {
+        if (! $this->needsLabel()) {
             $showLabel = false;
         }
 
@@ -208,7 +202,7 @@ abstract class FormField
                 'showLabel' => $showLabel,
                 'showField' => $showField,
                 'showError' => $showError,
-                'errorBag'  => $this->parent->getErrorBag(),
+                'errorBag' => $this->parent->getErrorBag(),
                 'translationTemplate' => $this->parent->getTranslationTemplate(),
             ]
         )->render();
@@ -227,8 +221,8 @@ abstract class FormField
     /**
      * Get the attribute value from the model by name.
      *
-     * @param mixed $model
-     * @param string $name
+     * @param  mixed  $model
+     * @param  string  $name
      * @return mixed
      */
     protected function getModelValueAttribute($model, $name)
@@ -246,7 +240,7 @@ abstract class FormField
     /**
      * Transform array like syntax to dot syntax.
      *
-     * @param string $key
+     * @param  string  $key
      * @return mixed
      */
     protected function transformKey($key)
@@ -257,7 +251,6 @@ abstract class FormField
     /**
      * Prepare options for rendering.
      *
-     * @param array $options
      * @return array The parsed options
      */
     protected function prepareOptions(array $options = [])
@@ -271,13 +264,12 @@ abstract class FormField
         $rules = $this->getOption('rules');
         $parsedRules = $rules ? $rulesParser->parse($rules) : [];
 
-
         foreach (['attr', 'label_attr', 'wrapper'] as $appendable) {
             // Append values to the 'class' attribute
             if ($this->getOption("{$appendable}.class_append")) {
                 // Combine the current class attribute with the appends
                 $append = $this->getOption("{$appendable}.class_append");
-                $classAttribute = $this->getOption("{$appendable}.class", '') . ' ' . $append;
+                $classAttribute = $this->getOption("{$appendable}.class", '').' '.$append;
                 $this->setOption("{$appendable}.class", $classAttribute);
 
                 // Then remove the class_append option to prevent it from showing up as an attribute in the HTML
@@ -285,12 +277,12 @@ abstract class FormField
             }
         }
 
-        if ($this->getOption('attr.multiple') && !$this->getOption('tmp.multipleBracesSet')) {
-            $this->name = $this->name . '[]';
+        if ($this->getOption('attr.multiple') && ! $this->getOption('tmp.multipleBracesSet')) {
+            $this->name = $this->name.'[]';
             $this->setOption('tmp.multipleBracesSet', true);
         }
 
-        if ($this->parent->haveErrorsEnabled()) {
+        if ($this->parent->haveAddErrorClassEnabled()) {
             $this->addErrorClass();
         }
 
@@ -298,8 +290,8 @@ abstract class FormField
             $lblClass = $this->getOption('label_attr.class', '');
             $requiredClass = $this->getConfig('required_class', 'required');
 
-            if (!Str::contains($lblClass, $requiredClass)) {
-                $lblClass .= ' ' . $requiredClass;
+            if (! Str::contains($lblClass, $requiredClass)) {
+                $lblClass .= ' '.$requiredClass;
                 $this->setOption('label_attr.class', $lblClass);
             }
 
@@ -313,8 +305,8 @@ abstract class FormField
         }
 
         if ($this->parent->clientValidationEnabled() && $parsedRules) {
-            foreach($parsedRules as $rule => $param){
-                $this->setOption('attr.' . $rule, $param);
+            foreach ($parsedRules as $rule => $param) {
+                $this->setOption('attr.'.$rule, $param);
             }
         }
 
@@ -333,7 +325,7 @@ abstract class FormField
 
     /**
      * Normalize and merge rules.
-     * @param array $sourceOptions
+     *
      * @return array
      */
     protected function prepareRules(array &$sourceOptions = [])
@@ -353,7 +345,6 @@ abstract class FormField
             $options['rules'] = $this->normalizeRules($options['rules']);
         }
 
-
         // Append rules
         if ($rulesToBeAppended = Arr::pull($sourceOptions, 'rules_append')) {
             $mergedRules = array_values(array_unique(array_merge($options['rules'], $rulesToBeAppended), SORT_REGULAR));
@@ -365,7 +356,8 @@ abstract class FormField
 
     /**
      * Normalize the the given rule expression to an array.
-     * @param mixed $rules
+     *
+     * @param  mixed  $rules
      * @return array
      */
     protected function normalizeRules($rules)
@@ -385,7 +377,6 @@ abstract class FormField
         return $rules;
     }
 
-
     /**
      * Get name of the field.
      *
@@ -399,7 +390,7 @@ abstract class FormField
     /**
      * Set name of the field.
      *
-     * @param string $name
+     * @param  string  $name
      * @return $this
      */
     public function setName($name)
@@ -432,8 +423,8 @@ abstract class FormField
     /**
      * Get single option from options array. Can be used with dot notation ('attr.class').
      *
-     * @param string $option
-     * @param mixed|null $default
+     * @param  string  $option
+     * @param  mixed|null  $default
      * @return mixed
      */
     public function getOption($option, $default = null)
@@ -444,7 +435,7 @@ abstract class FormField
     /**
      * Set field options.
      *
-     * @param array $options
+     * @param  array  $options
      * @return $this
      */
     public function setOptions($options)
@@ -457,8 +448,8 @@ abstract class FormField
     /**
      * Set single option on the field.
      *
-     * @param string $name
-     * @param mixed $value
+     * @param  string  $name
+     * @param  mixed  $value
      * @return $this
      */
     public function setOption($name, $value)
@@ -481,7 +472,7 @@ abstract class FormField
     /**
      * Set type of the field.
      *
-     * @param mixed $type
+     * @param  mixed  $type
      * @return $this
      */
     public function setType($type)
@@ -544,7 +535,7 @@ abstract class FormField
             'label_attr' => ['class' => $this->getConfig('label_class')],
             'errors' => ['class' => $this->getConfig('error_class')],
             'rules' => [],
-            'error_messages' => []
+            'error_messages' => [],
         ];
     }
 
@@ -559,7 +550,6 @@ abstract class FormField
     }
 
     /**
-     * @param $value
      * @return $this
      */
     public function setValue($value)
@@ -574,11 +564,11 @@ abstract class FormField
             $value = $closure($value ?: null);
         }
 
-        if (!$this->isValidValue($value)) {
+        if (! $this->isValidValue($value)) {
             $value = $this->getOption($this->defaultValueProperty);
         }
 
-        $this->options[$this->valueProperty] = old($this->getNameKey(),$value);
+        $this->options[$this->valueProperty] = old($this->getNameKey(), $value);
 
         return $this;
     }
@@ -590,7 +580,7 @@ abstract class FormField
      */
     private function setTemplate()
     {
-        $this->template = $this->getConfig('templates.'. $this->getTemplate(), $this->getTemplate());
+        $this->template = $this->getConfig('templates.'.$this->getTemplate(), $this->getTemplate());
     }
 
     /**
@@ -610,36 +600,31 @@ abstract class FormField
             $fieldErrorClass = $this->getConfig('field_error_class');
             $fieldClass = $this->getOption('attr.class');
 
-            if ($fieldErrorClass && !Str::contains($fieldClass, $fieldErrorClass)) {
-                $fieldClass .= ' ' . $fieldErrorClass;
+            if ($fieldErrorClass && ! Str::contains($fieldClass, $fieldErrorClass)) {
+                $fieldClass .= ' '.$fieldErrorClass;
                 $this->setOption('attr.class', $fieldClass);
             }
 
             $wrapperErrorClass = $this->getConfig('wrapper_error_class');
             $wrapperClass = $this->getOption('wrapper.class');
 
-            if ($wrapperErrorClass && $this->getOption('wrapper') && !Str::contains($wrapperClass, $wrapperErrorClass)) {
-                $wrapperClass .= ' ' . $wrapperErrorClass;
+            if ($wrapperErrorClass && $this->getOption('wrapper') && ! Str::contains($wrapperClass, $wrapperErrorClass)) {
+                $wrapperClass .= ' '.$wrapperErrorClass;
                 $this->setOption('wrapper.class', $wrapperClass);
             }
 
-            if ($this->parent->haveErrorsEnabled())
-            {
-                $labelErrorClass = $this->getConfig('label_error_class');
-                $labelClass = $this->getOption('label_attr.class');
+            $labelErrorClass = $this->getConfig('label_error_class');
+            $labelClass = $this->getOption('label_attr.class');
 
-                if ($labelErrorClass && $this->getOption('label_attr') && !Str::contains($labelClass, $labelErrorClass)) {
-                    $labelClass .= ' ' . $labelErrorClass;
-                    $this->setOption('label_attr.class', $labelClass);
-                }
+            if ($labelErrorClass && $this->getOption('label_attr') && ! Str::contains($labelClass, $labelErrorClass)) {
+                $labelClass .= ' '.$labelErrorClass;
+                $this->setOption('label_attr.class', $labelClass);
             }
         }
     }
 
     /**
      * Merge all defaults with field specific defaults and set template if passed.
-     *
-     * @param array $options
      */
     protected function setDefaultOptions(array $options = [])
     {
@@ -655,25 +640,25 @@ abstract class FormField
     /**
      * Creates default wrapper classes for the form element.
      *
-     * @param array $options
      * @return array
      */
     protected function setDefaultClasses(array $options = [])
     {
-        $wrapper_class = $this->getConfig('' . $this->type . '.wrapper_class', '');
-        $label_class = $this->getConfig('' . $this->type . '.label_class', '');
-        $field_class = $this->getConfig('' . $this->type . '.field_class', '');
+        $wrapper_class = $this->getConfig(''.$this->type.'.wrapper_class', '');
+        $label_class = $this->getConfig(''.$this->type.'.label_class', '');
+        $field_class = $this->getConfig(''.$this->type.'.field_class', '');
 
         $defaults = [];
-        if ($wrapper_class && !Arr::get($options, 'wrapper.class')) {
+        if ($wrapper_class && ! Arr::get($options, 'wrapper.class')) {
             $defaults['wrapper']['class'] = $wrapper_class;
         }
-        if ($label_class && !Arr::get($options, 'label_attr.class')) {
+        if ($label_class && ! Arr::get($options, 'label_attr.class')) {
             $defaults['label_attr']['class'] = $label_class;
         }
-        if ($field_class && !Arr::get($options, 'attr.class')) {
+        if ($field_class && ! Arr::get($options, 'attr.class')) {
             $defaults['attr']['class'] = $field_class;
         }
+
         return $defaults;
     }
 
@@ -777,7 +762,7 @@ abstract class FormField
             $messages = $newMessages;
         }
 
-        if (!$rules) {
+        if (! $rules) {
             return (new Rules([]))->setFieldName($this->getNameKey());
         }
 
@@ -801,7 +786,7 @@ abstract class FormField
     /**
      * Get value property.
      *
-     * @param mixed|null $default
+     * @param  mixed|null  $default
      * @return mixed
      */
     public function getValue($default = null)
@@ -812,7 +797,7 @@ abstract class FormField
     /**
      * Get default value property.
      *
-     * @param mixed|null $default
+     * @param  mixed|null  $default
      * @return mixed
      */
     public function getDefaultValue($default = null)
@@ -859,7 +844,6 @@ abstract class FormField
     /**
      * Method setFilters used to set filters to current filters property.
      *
-     * @param  array $filters
      *
      * @return \BalajiDharma\LaravelFormBuilder\Fields\FormField
      */
@@ -885,8 +869,7 @@ abstract class FormField
     }
 
     /**
-     * @param  string|FilterInterface $filter
-     *
+     * @param  string|FilterInterface  $filter
      * @return \BalajiDharma\LaravelFormBuilder\Fields\FormField
      *
      * @throws FilterAlreadyBindedException
@@ -923,8 +906,7 @@ abstract class FormField
     /**
      * Method removeFilter used to remove filter by provided alias/name.
      *
-     * @param  string $name
-     *
+     * @param  string  $name
      * @return \BalajiDharma\LaravelFormBuilder\Fields\FormField
      */
     public function removeFilter($name)
@@ -941,7 +923,6 @@ abstract class FormField
     /**
      * Method removeFilters used to remove filters by provided aliases/names.
      *
-     * @param  array $filterNames
      *
      * @return \BalajiDharma\LaravelFormBuilder\Fields\FormField
      */
@@ -966,19 +947,20 @@ abstract class FormField
     public function clearFilters()
     {
         $this->filters = [];
+
         return $this;
     }
 
     /**
      * Method used to set FiltersOverride status to provided value.
      *
-     * @param $status
      *
      * @return \BalajiDharma\LaravelFormBuilder\Fields\FormField
      */
     public function setFiltersOverride($status)
     {
         $this->filtersOverride = $status;
+
         return $this;
     }
 
@@ -994,13 +976,13 @@ abstract class FormField
      * Method used to set Unfiltered/Unmutated field value.
      * Method is called before field value mutating starts - request value filtering.
      *
-     * @param mixed $value
-     *
+     * @param  mixed  $value
      * @return \BalajiDharma\LaravelFormBuilder\Fields\FormField
      */
     public function setRawValue($value)
     {
         $this->rawValue = $value;
+
         return $this;
     }
 

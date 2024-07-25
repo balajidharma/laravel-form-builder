@@ -2,8 +2,8 @@
 
 namespace BalajiDharma\LaravelFormBuilder\Events;
 
-use Illuminate\Contracts\Validation\Validator;
 use BalajiDharma\LaravelFormBuilder\Form;
+use Illuminate\Contracts\Validation\Validator;
 
 class AfterFormValidation
 {
@@ -31,9 +31,7 @@ class AfterFormValidation
     /**
      * Create a new after form validation instance.
      *
-     * @param  Form       $form
-     * @param  Validator  $validator
-     * @param  bool       $valid
+     * @param  bool  $valid
      * @return void
      */
     public function __construct(Form $form, Validator $validator, $valid)
@@ -72,5 +70,4 @@ class AfterFormValidation
     {
         return $this->valid;
     }
-
 }

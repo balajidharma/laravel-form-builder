@@ -7,15 +7,13 @@ use BalajiDharma\LaravelFormBuilder\Filters\FilterInterface;
 /**
  * Class XSS
  *
- * @package BalajiDharma\LaravelFormBuilder\Filters\Collection
  * @author  Djordje Stojiljkovic <djordjestojilljkovic@gmail.com>
  */
 class XSS implements FilterInterface
 {
     /**
-     * @param  mixed $value
-     * @param  array $options
-     *
+     * @param  mixed  $value
+     * @param  array  $options
      * @return mixed
      */
     public function __construct($value, $options = [])
@@ -25,9 +23,8 @@ class XSS implements FilterInterface
     }
 
     /**
-     * @param  mixed $value
-     * @param  array $options
-     *
+     * @param  mixed  $value
+     * @param  array  $options
      * @return mixed
      */
     public function filter($value, $options = [])
@@ -35,7 +32,7 @@ class XSS implements FilterInterface
         do {
             // Treat $input as buffer on each loop, faster
             // than new var && Remove unwanted tags
-            $input  = $value;
+            $input = $value;
             $output = $this->stripTags($input);
             $output = $this->stripEncodedEntities($output);
 
@@ -53,16 +50,15 @@ class XSS implements FilterInterface
      * Focuses on stripping encoded entities
      * *** This appears to be why people use this sample code. Unclear how well Kses does this ***
      *
-     * @param   string  $input  Content to be cleaned. It MAY be modified in output
-     *
-     * @return  string  $input  Modified $input string
+     * @param  string  $input  Content to be cleaned. It MAY be modified in output
+     * @return string $input  Modified $input string
      *
      * @author  Mike Bijon <https://github.com/mbijon>
      */
     private function stripEncodedEntities($input)
     {
         // Fix &entity\n;
-        $input = str_replace(array('&amp;','&lt;','&gt;'), array('&amp;amp;','&amp;lt;','&amp;gt;'), $input);
+        $input = str_replace(['&amp;', '&lt;', '&gt;'], ['&amp;amp;', '&amp;lt;', '&amp;gt;'], $input);
         $input = preg_replace('/(&#*\w+)[\x00-\x20]+;/u', '$1;', $input);
         $input = preg_replace('/(&#x*[0-9A-F]+);*/iu', '$1;', $input);
         $input = html_entity_decode($input, ENT_COMPAT, 'UTF-8');
@@ -86,9 +82,8 @@ class XSS implements FilterInterface
     /**
      * Focuses on stripping unencoded HTML tags & namespaces
      *
-     * @param   string  $input  Content to be cleaned. It MAY be modified in output
-     *
-     * @return  string  $input  Modified $input string
+     * @param  string  $input  Content to be cleaned. It MAY be modified in output
+     * @return string $input  Modified $input string
      *
      * @author  Mike Bijon <https://github.com/mbijon>
      */
@@ -110,9 +105,8 @@ class XSS implements FilterInterface
      * To enable 2nd param of clean_input() can be set to anything other than 0 or '0':
      * ie: xssClean->clean_input( $input_string, 1 )
      *
-     * @param   string  $input      Maybe Base64 encoded string
-     *
-     * @return  string  $output     Modified & re-encoded $input string
+     * @param  string  $input  Maybe Base64 encoded string
+     * @return string $output     Modified & re-encoded $input string
      *
      * @author  Mike Bijon <https://github.com/mbijon>
      */
@@ -121,7 +115,7 @@ class XSS implements FilterInterface
         $decoded = base64_decode($input);
         $decoded = $this->stripTags($decoded);
         $decoded = $this->stripEncodedEntities($decoded);
-        $output  = base64_encode($decoded);
+        $output = base64_encode($decoded);
 
         return $output;
     }

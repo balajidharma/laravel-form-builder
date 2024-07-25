@@ -4,9 +4,8 @@ namespace BalajiDharma\LaravelFormBuilder\Fields;
 
 class TextareaType extends FormField
 {
-
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getTemplate()
     {

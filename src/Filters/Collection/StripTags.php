@@ -7,7 +7,6 @@ use BalajiDharma\LaravelFormBuilder\Filters\FilterInterface;
 /**
  * Class StripTags
  *
- * @package BalajiDharma\LaravelFormBuilder\Filters\Collection
  * @author  Djordje Stojiljkovic <djordjestojilljkovic@gmail.com>
  */
 class StripTags implements FilterInterface
@@ -18,24 +17,23 @@ class StripTags implements FilterInterface
      * Tags are stored in the array keys, and the array values are themselves
      * arrays of the attributes allowed for the corresponding tag.
      *
-     * @var array $allowedTags
+     * @var array
      */
     protected $allowedTags = [];
 
     /**
-     *
      * Array of allowed attributes for all allowed tags.
      *
      * Attributes stored here are allowed for all of the allowed tags.
      *
-     * @var array $allowedAttributes
+     * @var array
      */
     protected $allowedAttributes = [];
 
     /**
      * StripTags constructor.
      *
-     * @param array $options
+     * @param  array  $options
      */
     public function __construct($options = [])
     {
@@ -51,14 +49,13 @@ class StripTags implements FilterInterface
     /**
      * Sets the allowedTags property.
      *
-     * @param array|string $allowedTags
-     *
+     * @param  array|string  $allowedTags
      * @return \BalajiDharma\LaravelFormBuilder\Filters\Collection\StripTags
      */
     public function setAllowedTags($allowedTags)
     {
-        if (!is_array($allowedTags)) {
-            $allowedTags = array($allowedTags);
+        if (! is_array($allowedTags)) {
+            $allowedTags = [$allowedTags];
         }
 
         foreach ($allowedTags as $index => $element) {
@@ -72,7 +69,7 @@ class StripTags implements FilterInterface
             }
 
             // Otherwise, if a tag was provided with attributes
-            else if (is_string($index) && (is_array($element) || is_string($element))) {
+            elseif (is_string($index) && (is_array($element) || is_string($element))) {
 
                 // Canonicalize the tag name
                 $tagName = strtolower($index);
@@ -108,13 +105,12 @@ class StripTags implements FilterInterface
     /**
      * Sets the allowedAttributes property.
      *
-     * @param array|string $allowedAttribs
-     *
+     * @param  array|string  $allowedAttribs
      * @return \BalajiDharma\LaravelFormBuilder\Filters\Collection\StripTags
      */
     public function setAllowedAttributes($allowedAttribs)
     {
-        if (!is_array($allowedAttribs)) {
+        if (! is_array($allowedAttribs)) {
             $allowedAttribs = [$allowedAttribs];
         }
 
@@ -131,9 +127,8 @@ class StripTags implements FilterInterface
     }
 
     /**
-     * @param  mixed $value
-     * @param  array $options
-     *
+     * @param  mixed  $value
+     * @param  array  $options
      * @return string
      */
     public function filter($value, $options = [])
@@ -142,18 +137,18 @@ class StripTags implements FilterInterface
 
         // Strip HTML comments first
         while (strpos($value, '<!--') !== false) {
-            $pos   = strrpos($value, '<!--');
+            $pos = strrpos($value, '<!--');
             $start = substr($value, 0, $pos);
             $value = substr($value, $pos);
 
             // If there is no comment closing tag, strip whole text.
-            if (!preg_match('/--\s*>/s', $value)) {
+            if (! preg_match('/--\s*>/s', $value)) {
                 $value = '';
             } else {
-                $value = preg_replace('/<(?:!(?:--[\s\S]*?--\s*)?(>))/s', '',  $value);
+                $value = preg_replace('/<(?:!(?:--[\s\S]*?--\s*)?(>))/s', '', $value);
             }
 
-            $value = $start . $value;
+            $value = $start.$value;
         }
 
         // Initialize accumulator for filtered data.
@@ -176,7 +171,7 @@ class StripTags implements FilterInterface
                 $tagFiltered = '';
             }
             // Add the filtered pre-tag text and filtered tag to the data buffer.
-            $dataFiltered .= $preTag . $tagFiltered;
+            $dataFiltered .= $preTag.$tagFiltered;
         }
 
         // Return the filtered data.
@@ -186,8 +181,7 @@ class StripTags implements FilterInterface
     /**
      * Filters a single tag against the current property data.
      *
-     * @param  string $tag
-     *
+     * @param  string  $tag
      * @return string
      */
     public function filterCertainTag($tag)
@@ -200,18 +194,18 @@ class StripTags implements FilterInterface
         $isMatch = preg_match('~(</?)(\w*)((/(?!>)|[^/>])*)(/?>)~', $tag, $matches);
 
         // If the tag does not match, then strip the tag entirely
-        if (!$isMatch) {
+        if (! $isMatch) {
             return '';
         }
 
         // Save the matches to more meaningfully named variables
-        $tagStart      = $matches[1];
-        $tagName       = strtolower($matches[2]);
+        $tagStart = $matches[1];
+        $tagName = strtolower($matches[2]);
         $tagAttributes = $matches[3];
-        $tagEnd        = $matches[5];
+        $tagEnd = $matches[5];
 
         // If the tag is not an allowed tag, then remove the tag entirely
-        if (!isset($this->allowedTags[$tagName])) {
+        if (! isset($this->allowedTags[$tagName])) {
             return '';
         }
 
@@ -228,18 +222,18 @@ class StripTags implements FilterInterface
 
             // Iterate over each matched attribute
             foreach ($matches[1] as $index => $attributeName) {
-                $attributeName      = strtolower($attributeName);
+                $attributeName = strtolower($attributeName);
                 $attributeDelimiter = empty($matches[2][$index]) ? $matches[4][$index] : $matches[2][$index];
-                $attributeValue     = empty($matches[3][$index]) ? $matches[5][$index] : $matches[3][$index];
+                $attributeValue = empty($matches[3][$index]) ? $matches[5][$index] : $matches[3][$index];
 
                 // If the attribute is not allowed, then remove it entirely
-                if (!array_key_exists($attributeName, $this->allowedTags[$tagName])
-                    && !array_key_exists($attributeName, $this->allowedAttributes)) {
+                if (! array_key_exists($attributeName, $this->allowedTags[$tagName])
+                    && ! array_key_exists($attributeName, $this->allowedAttributes)) {
                     continue;
                 }
                 // Add the attribute to the accumulator
-                $tagAttributes .= " $attributeName=" . $attributeDelimiter
-                    . $attributeValue . $attributeDelimiter;
+                $tagAttributes .= " $attributeName=".$attributeDelimiter
+                    .$attributeValue.$attributeDelimiter;
             }
         }
 
@@ -249,7 +243,7 @@ class StripTags implements FilterInterface
         }
 
         // Return the filtered tag
-        return $tagStart . $tagName . $tagAttributes . $tagEnd;
+        return $tagStart.$tagName.$tagAttributes.$tagEnd;
     }
 
     /**

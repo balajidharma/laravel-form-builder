@@ -1,11 +1,11 @@
 <?php
 
-namespace  BalajiDharma\LaravelFormBuilder\Fields;
+namespace BalajiDharma\LaravelFormBuilder\Fields;
 
 class ButtonType extends FormField
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getTemplate()
     {
@@ -13,18 +13,18 @@ class ButtonType extends FormField
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getDefaults()
     {
         return [
             'wrapper' => false,
-            'attr' => ['type' => $this->type]
+            'attr' => ['type' => $this->type],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAllAttributes()
     {

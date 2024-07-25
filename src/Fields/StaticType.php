@@ -1,22 +1,23 @@
 <?php
 
-namespace  BalajiDharma\LaravelFormBuilder\Fields;
+namespace BalajiDharma\LaravelFormBuilder\Fields;
 
 class StaticType extends FormField
 {
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function render(array $options = [], $showLabel = true, $showField = true, $showError = false)
     {
         $this->setupStaticOptions($options);
+
         return parent::render($options, $showLabel, $showField, $showError);
     }
 
     /**
      * Setup static field options.
      *
-     * @param array $options
+     * @param  array  $options
      * @return void
      */
     private function setupStaticOptions(&$options)
@@ -25,7 +26,7 @@ class StaticType extends FormField
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getTemplate()
     {
@@ -33,18 +34,18 @@ class StaticType extends FormField
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getDefaults()
     {
         return [
             'tag' => 'div',
-            'attr' => ['class' => 'form-control-static', 'id' => $this->getName()]
+            'attr' => ['class' => 'form-control-static', 'id' => $this->getName()],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAllAttributes()
     {

@@ -5,7 +5,6 @@ namespace BalajiDharma\LaravelFormBuilder\Filters\Exception;
 /**
  * Class FilterAlreadyBinded
  *
- * @package BalajiDharma\LaravelFormBuilder\Filters\Exception
  * @author  Djordje Stojiljkovic <djordjestojilljkovic@gmail.com>
  */
 class FilterAlreadyBindedException extends \Exception
@@ -14,7 +13,7 @@ class FilterAlreadyBindedException extends \Exception
     {
         $message = sprintf(
             'Filter with name: %filter already assigned for field: %field',
-                $filter, $field
+            $filter, $field
         );
         parent::__construct($message);
     }

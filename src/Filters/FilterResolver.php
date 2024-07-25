@@ -8,7 +8,6 @@ use BalajiDharma\LaravelFormBuilder\Filters\Exception\UnableToResolveFilterExcep
 /**
  * Class FilterResolver
  *
- * @package BalajiDharma\LaravelFormBuilder\Filters
  * @author  Djordje Stojiljkovic <djordjestojilljkovic@gmail.com>
  */
 class FilterResolver
@@ -17,8 +16,7 @@ class FilterResolver
      * Method instance used to resolve filter parameter to
      * FilterInterface object from filter Alias or object itself.
      *
-     * @param  mixed $filter
-     *
+     * @param  mixed  $filter
      * @return FilterInterface
      *
      * @throws Exception\UnableToResolveFilterException
@@ -26,7 +24,7 @@ class FilterResolver
      */
     public static function instance($filter)
     {
-        if (!is_string($filter)) {
+        if (! is_string($filter)) {
             return self::validateFilterInstance($filter);
         }
 
@@ -43,15 +41,13 @@ class FilterResolver
     }
 
     /**
-     * @param $filter
+     * @return mixed
      *
      * @throws \Exception
-     *
-     * @return mixed
      */
     private static function validateFilterInstance($filter)
     {
-        if (!$filter instanceof FilterInterface) {
+        if (! $filter instanceof FilterInterface) {
             $ex = new InvalidInstanceException();
             throw $ex;
         }
@@ -60,13 +56,11 @@ class FilterResolver
     }
 
     /**
-     * @param  $filterName
-     *
      * @return FilterInterface|null
      */
     public static function resolveFromCollection($filterName)
     {
-        $filterClass = self::getCollectionNamespace() . $filterName;
+        $filterClass = self::getCollectionNamespace().$filterName;
         if (class_exists($filterClass)) {
             return new $filterClass;
         }
@@ -77,6 +71,6 @@ class FilterResolver
      */
     public static function getCollectionNamespace()
     {
-        return "\\BalajiDharma\\LaravelFormBuilder\\Filters\\Collection\\";
+        return '\\BalajiDharma\\LaravelFormBuilder\\Filters\\Collection\\';
     }
 }

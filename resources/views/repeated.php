@@ -1,24 +1,24 @@
-<?php if ($showLabel && $showField): ?>
-    <?php if ($options['wrapper'] !== false): ?>
+<?php if ($showLabel && $showField) { ?>
+    <?php if ($options['wrapper'] !== false) { ?>
     <div <?= $options['wrapperAttrs'] ?> >
-    <?php endif; ?>
-<?php endif; ?>
+    <?php } ?>
+<?php } ?>
 
-<?php if ($showField): ?>
+<?php if ($showField) { ?>
     <?= $options['children']['first']->render([], true, true, false) ?>
     <?= $options['children']['second']->render([], true, true, false) ?>
 
     <?php include helpBlockPath(); ?>
 
-<?php endif; ?>
+<?php } ?>
 
-<?php if ($showError && isset($errors)): ?>
+<?php if ($showError && isset($errors)) { ?>
     <?= $options['children']['first']->render([], false, false, true) ?>
     <?= $options['children']['second']->render([], false, false, true) ?>
-<?php endif; ?>
+<?php } ?>
 
-<?php if ($showLabel && $showField): ?>
-    <?php if ($options['wrapper'] !== false): ?>
+<?php if ($showLabel && $showField) { ?>
+    <?php if ($options['wrapper'] !== false) { ?>
     </div>
-    <?php endif; ?>
-<?php endif; ?>
+    <?php } ?>
+<?php } ?>

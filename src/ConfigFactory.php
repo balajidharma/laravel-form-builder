@@ -10,7 +10,6 @@ class ConfigFactory
      * Get documentation config.
      *
      * @param  string|null  $documentation
-     * @return array
      *
      * @throws FormBuilderException
      */
@@ -40,6 +39,7 @@ class ConfigFactory
                 && $this->isAssociativeArray($value)
             ) {
                 $merged[$key] = $this->mergeConfig($defaults[$key], $value);
+
                 continue;
             }
 

@@ -6,14 +6,13 @@ use BalajiDharma\LaravelFormBuilder\Form;
 
 class ChildFormType extends ParentType
 {
-
     /**
      * @var Form
      */
     protected $form;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getTemplate()
     {
@@ -29,7 +28,7 @@ class ChildFormType extends ParentType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getDefaults()
     {
@@ -38,12 +37,12 @@ class ChildFormType extends ParentType
             'value' => null,
             'formOptions' => [],
             'data' => [],
-            'exclude' => []
+            'exclude' => [],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAllAttributes()
     {
@@ -54,7 +53,6 @@ class ChildFormType extends ParentType
     /**
      * Allow form-specific value alters.
      *
-     * @param  array $values
      * @return void
      */
     public function alterFieldValues(array &$values)
@@ -65,7 +63,6 @@ class ChildFormType extends ParentType
     /**
      * Allow form-specific valid alters.
      *
-     * @param  Form  $mainForm
      * @param  bool  $isValid
      * @return void
      */
@@ -96,6 +93,7 @@ class ChildFormType extends ParentType
 
     /**
      * @return Form
+     *
      * @throws \Exception
      */
     protected function getClassFromOptions()
@@ -106,7 +104,7 @@ class ChildFormType extends ParentType
 
         $class = $this->getOption('class');
 
-        if (!$class) {
+        if (! $class) {
             throw new \InvalidArgumentException(
                 'Please provide full name or instance of Form class.'
             );
@@ -120,11 +118,11 @@ class ChildFormType extends ParentType
                 'translation_template' => $this->parent->getTranslationTemplate(),
             ];
 
-            if (!$this->parent->clientValidationEnabled()) {
+            if (! $this->parent->clientValidationEnabled()) {
                 $options['client_validation'] = false;
             }
 
-            if (!$this->parent->haveErrorsEnabled()) {
+            if (! $this->parent->haveErrorsEnabled()) {
                 $options['errors_enabled'] = false;
             }
 
@@ -139,23 +137,23 @@ class ChildFormType extends ParentType
             $class->setName($this->name, false);
             $class->setModel($class->getModel() ?: $this->parent->getModel());
 
-            if (!$class->getData()) {
+            if (! $class->getData()) {
                 $class->addData($this->parent->getData());
             }
 
-            if (!$class->getLanguageName()) {
+            if (! $class->getLanguageName()) {
                 $class->setLanguageName($this->parent->getLanguageName());
             }
 
-            if (!$class->getTranslationTemplate()) {
+            if (! $class->getTranslationTemplate()) {
                 $class->setTranslationTemplate($this->parent->getTranslationTemplate());
             }
 
-            if (!$this->parent->clientValidationEnabled()) {
+            if (! $this->parent->clientValidationEnabled()) {
                 $class->setClientValidationEnabled(false);
             }
 
-            if (!$this->parent->haveErrorsEnabled()) {
+            if (! $this->parent->haveErrorsEnabled()) {
                 $class->setErrorsEnabled(false);
             }
 
@@ -168,12 +166,13 @@ class ChildFormType extends ParentType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function removeChild($key)
     {
         if ($this->getChild($key)) {
             $this->form->remove($key);
+
             return parent::removeChild($key);
         }
 
@@ -181,18 +180,17 @@ class ChildFormType extends ParentType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
-    protected function getRenderData() {
+    protected function getRenderData()
+    {
         $data = parent::getRenderData();
         $data['child_form'] = $this->form;
+
         return $data;
     }
 
     /**
-     * @param $method
-     * @param $arguments
-     *
      * @return Form|null
      */
     public function __call($method, $arguments)

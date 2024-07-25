@@ -5,7 +5,6 @@ namespace BalajiDharma\LaravelFormBuilder\Filters;
 /**
  * Interface FilterInterface
  *
- * @package BalajiDharma\LaravelFormBuilder\Filters
  * @author  Djordje Stojiljkovic <djordjestojilljkovic@gmail.com>
  */
 interface FilterInterface
@@ -13,12 +12,11 @@ interface FilterInterface
     /**
      * Returns the result of filtering $value.
      *
-     * @param  mixed $value
-     * @param  array $options
+     * @param  mixed  $value
+     * @param  array  $options
+     * @return mixed
      *
      * @throws \Exception If filtering $value is impossible.
-     *
-     * @return mixed
      */
     public function filter($value, $options = []);
 

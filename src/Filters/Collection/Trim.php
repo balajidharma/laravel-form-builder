@@ -7,7 +7,6 @@ use BalajiDharma\LaravelFormBuilder\Filters\FilterInterface;
 /**
  * Class Trim
  *
- * @package BalajiDharma\LaravelFormBuilder\Filters\Collection
  * @author  Djordje Stojiljkovic <djordjestojilljkovic@gmail.com>
  */
 class Trim implements FilterInterface
@@ -24,7 +23,7 @@ class Trim implements FilterInterface
     /**
      * Trim constructor.
      *
-     * @param array $options
+     * @param  array  $options
      */
     public function __construct($options = [])
     {
@@ -34,13 +33,12 @@ class Trim implements FilterInterface
     }
 
     /**
-     * @param  $charList
-     *
      * @return \BalajiDharma\LaravelFormBuilder\Filters\Collection\Trim
      */
     public function setCharList($charList)
     {
         $this->charList = $charList;
+
         return $this;
     }
 
@@ -71,20 +69,20 @@ class Trim implements FilterInterface
      * Unicode aware trim method
      * Fixes a PHP problem
      *
-     * @param  string $value
-     * @param  string $charList
-     *
+     * @param  string  $value
+     * @param  string  $charList
      * @return string
      */
     protected function trimUnicode($value, $charList = '\\\\s')
     {
         $chars = preg_replace(
             ['/[\^\-\]\\\]/S', '/\\\{4}/S', '/\//'],
-            ['\\\\\\0', '\\', '\/' ],
+            ['\\\\\\0', '\\', '\/'],
             $charList
         );
 
-        $pattern = '^[' . $chars . ']*|[' . $chars . ']*$';
+        $pattern = '^['.$chars.']*|['.$chars.']*$';
+
         return preg_replace("/$pattern/sSD", '', $value);
     }
 

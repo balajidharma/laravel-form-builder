@@ -2,21 +2,18 @@
 
 namespace BalajiDharma\LaravelFormBuilder;
 
+use BalajiDharma\LaravelFormBuilder\Events\AfterCollectingFieldRules;
+use BalajiDharma\LaravelFormBuilder\Fields\CheckboxType;
+use BalajiDharma\LaravelFormBuilder\Fields\FormField;
 use Illuminate\Contracts\Support\MessageBag;
 use Illuminate\Contracts\View\Factory as View;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Translation\Translator;
-use BalajiDharma\LaravelFormBuilder\Events\AfterCollectingFieldRules;
-use BalajiDharma\LaravelFormBuilder\Fields\CheckboxType;
-use BalajiDharma\LaravelFormBuilder\Fields\FormField;
-use BalajiDharma\LaravelFormBuilder\Form;
-use BalajiDharma\LaravelFormBuilder\RulesParser;
 
 class FormHelper
 {
-
     /**
      * @var View
      */
@@ -41,7 +38,7 @@ class FormHelper
      * @var array
      */
     protected static $reservedFieldNames = [
-        'save'
+        'save',
     ];
 
     /**
@@ -90,11 +87,6 @@ class FormHelper
      */
     private $customTypes = [];
 
-    /**
-     * @param View $view
-     * @param Translator $translator
-     * @param array $config
-     */
     public function __construct(View $view, Translator $translator, array $config = [])
     {
         $this->view = $view;
@@ -104,9 +96,9 @@ class FormHelper
     }
 
     /**
-     * @param string $key
-     * @param string $default
-     * @param array $customConfig
+     * @param  string  $key
+     * @param  string  $default
+     * @param  array  $customConfig
      * @return mixed
      */
     public function getConfig($key = null, $default = null, $customConfig = [])
@@ -131,8 +123,6 @@ class FormHelper
     /**
      * Merge options array.
      *
-     * @param array $targetOptions
-     * @param array $sourceOptions
      * @return array
      */
     public function mergeOptions(array $targetOptions, array $sourceOptions)
@@ -140,18 +130,16 @@ class FormHelper
         return array_replace_recursive($targetOptions, $sourceOptions);
     }
 
-
     /**
      * Get proper class for field type.
      *
-     * @param $type
      * @return string
      */
     public function getFieldType($type)
     {
         $types = array_keys(static::$availableFieldTypes);
 
-        if (!$type || trim($type) == '') {
+        if (! $type || trim($type) == '') {
             throw new \InvalidArgumentException('Field type must be provided.');
         }
 
@@ -160,13 +148,13 @@ class FormHelper
         }
 
         if (in_array($type, $types, true)) {
-            $namespace = __NAMESPACE__ . '\\Fields\\';
+            $namespace = __NAMESPACE__.'\\Fields\\';
 
-            return $namespace . static::$availableFieldTypes[$type];
+            return $namespace.static::$availableFieldTypes[$type];
         }
 
         if (class_exists($type)) {
-            if (!is_subclass_of($type, FormField::class)) {
+            if (! is_subclass_of($type, FormField::class)) {
                 throw new \InvalidArgumentException(sprintf('Could not load type "%s": class is not a subclass of "%s".', $type, FormField::class));
             }
 
@@ -177,7 +165,7 @@ class FormHelper
             sprintf(
                 'Unsupported field type [%s]. Available types are: %s',
                 $type,
-                join(', ', array_merge($types, array_keys($this->customTypes)))
+                implode(', ', array_merge($types, array_keys($this->customTypes)))
             )
         );
     }
@@ -185,12 +173,11 @@ class FormHelper
     /**
      * Convert array of attributes to html attributes.
      *
-     * @param $options
      * @return string
      */
     public function prepareAttributes($options)
     {
-        if (!$options) {
+        if (! $options) {
             return null;
         }
 
@@ -199,26 +186,23 @@ class FormHelper
         foreach ($options as $name => $option) {
             if ($option !== null) {
                 $name = is_numeric($name) ? $option : $name;
-                $attributes[] = $name . '="' . $option . '" ';
+                $attributes[] = $name.'="'.$option.'" ';
             }
         }
 
-        return join('', $attributes);
+        return implode('', $attributes);
     }
 
     /**
      * Add custom field.
-     *
-     * @param $name
-     * @param $class
      */
     public function addCustomField($name, $class)
     {
-        if (!$this->hasCustomField($name)) {
+        if (! $this->hasCustomField($name)) {
             return $this->customTypes[$name] = $class;
         }
 
-        throw new \InvalidArgumentException('Custom field [' . $name . '] already exists on this form object.');
+        throw new \InvalidArgumentException('Custom field ['.$name.'] already exists on this form object.');
     }
 
     /**
@@ -226,9 +210,9 @@ class FormHelper
      */
     private function loadCustomTypes()
     {
-        $customFields = (array)$this->getConfig('custom_fields');
+        $customFields = (array) $this->getConfig('custom_fields');
 
-        if (!empty($customFields)) {
+        if (! empty($customFields)) {
             foreach ($customFields as $fieldName => $fieldClass) {
                 $this->addCustomField($fieldName, $fieldClass);
             }
@@ -237,8 +221,9 @@ class FormHelper
 
     /**
      * Check if custom field with provided name exists
-     * @param string $name
-     * @return boolean
+     *
+     * @param  string  $name
+     * @return bool
      */
     public function hasCustomField($name)
     {
@@ -246,12 +231,12 @@ class FormHelper
     }
 
     /**
-     * @param object $model
+     * @param  object  $model
      * @return object|null
      */
     public function convertModelToArray($model)
     {
-        if (!$model) {
+        if (! $model) {
             return null;
         }
 
@@ -269,12 +254,11 @@ class FormHelper
     /**
      * Format the label to the proper format.
      *
-     * @param $name
      * @return string
      */
     public function formatLabel($name)
     {
-        if (!$name) {
+        if (! $name) {
             return null;
         }
 
@@ -290,7 +274,6 @@ class FormHelper
     }
 
     /**
-     * @param FormField $field
      * @return RulesParser
      */
     public function createRulesParser(FormField $field)
@@ -299,7 +282,6 @@ class FormHelper
     }
 
     /**
-     * @param FormField $field
      * @return array
      */
     public function getFieldValidationRules(FormField $field)
@@ -317,7 +299,7 @@ class FormHelper
     }
 
     /**
-     * @param FormField[] $fields
+     * @param  FormField[]  $fields
      * @return array
      */
     public function mergeFieldsRules($fields)
@@ -332,7 +314,6 @@ class FormHelper
     }
 
     /**
-     * @param array $fields
      * @return array
      */
     public function mergeAttributes(array $fields)
@@ -348,7 +329,6 @@ class FormHelper
     /**
      * Get a form's checkbox fields' names.
      *
-     * @param Form $form
      * @return array
      */
     public function getBoolableFields(Form $form)
@@ -366,8 +346,6 @@ class FormHelper
     /**
      * Turn checkbox fields into bools.
      *
-     * @param Form $form
-     * @param array $values
      * @return void
      */
     public function alterFieldValuesBools(Form $form, array &$values)
@@ -377,7 +355,7 @@ class FormHelper
         foreach ($fields as $name) {
             $value = Arr::get($values, $name, -1);
             if ($value !== -1) {
-                Arr::set($values, $name, (int)(bool)$value);
+                Arr::set($values, $name, (int) (bool) $value);
             }
         }
     }
@@ -385,8 +363,6 @@ class FormHelper
     /**
      * Alter a form's values recursively according to its fields.
      *
-     * @param Form $form
-     * @param array $values
      * @return void
      */
     public function alterFieldValues(Form $form, array &$values)
@@ -398,7 +374,7 @@ class FormHelper
             if (method_exists($field, 'alterFieldValues')) {
                 $fullName = $this->transformToDotSyntax($name);
 
-                $subValues = (array)Arr::get($values, $fullName);
+                $subValues = (array) Arr::get($values, $fullName);
                 $field->alterFieldValues($subValues);
                 Arr::set($values, $fullName, $subValues);
             }
@@ -441,17 +417,17 @@ class FormHelper
     {
         foreach ($keyedMessages as $key => $messages) {
             if ($prefix) {
-                $key = $this->transformToDotSyntax($prefix . '[' . $key . ']');
+                $key = $this->transformToDotSyntax($prefix.'['.$key.']');
             }
 
-            foreach ((array)$messages as $message) {
+            foreach ((array) $messages as $message) {
                 $messageBag->add($key, $message);
             }
         }
     }
 
     /**
-     * @param string $string
+     * @param  string  $string
      * @return string
      */
     public function transformToDotSyntax($string)
@@ -460,7 +436,7 @@ class FormHelper
     }
 
     /**
-     * @param string $string
+     * @param  string  $string
      * @return string
      */
     public function transformToBracketSyntax($string)
@@ -471,7 +447,8 @@ class FormHelper
         }
 
         $first = array_shift($name);
-        return $first . '[' . implode('][', $name) . ']';
+
+        return $first.'['.implode('][', $name).']';
     }
 
     /**
@@ -485,13 +462,14 @@ class FormHelper
     /**
      * Check if field name is valid and not reserved.
      *
-     * @param string $name
-     * @param string $className
+     * @param  string  $name
+     * @param  string  $className
+     *
      * @throws \InvalidArgumentException
      */
     public function checkFieldName($name, $className)
     {
-        if (!$name || trim($name) == '') {
+        if (! $name || trim($name) == '') {
             throw new \InvalidArgumentException(
                 "Please provide valid field name for class [{$className}]"
             );
@@ -499,8 +477,8 @@ class FormHelper
 
         if (in_array($name, static::$reservedFieldNames)) {
             throw new \InvalidArgumentException(
-                "Field name [{$name}] in form [{$className}] is a reserved word. Please use a different field name." .
-                "\nList of all reserved words: " . join(', ', static::$reservedFieldNames)
+                "Field name [{$name}] in form [{$className}] is a reserved word. Please use a different field name.".
+                "\nList of all reserved words: ".implode(', ', static::$reservedFieldNames)
             );
         }
 

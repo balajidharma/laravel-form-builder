@@ -4,7 +4,6 @@ namespace BalajiDharma\LaravelFormBuilder\Fields;
 
 class RepeatedType extends ParentType
 {
-
     /**
      * Get the template, can be config variable or view path.
      *
@@ -16,7 +15,7 @@ class RepeatedType extends ParentType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function getDefaults()
     {
@@ -24,12 +23,12 @@ class RepeatedType extends ParentType
             'type' => 'password',
             'second_name' => null,
             'first_options' => ['label' => 'Password'],
-            'second_options' => ['label' => 'Password confirmation']
+            'second_options' => ['label' => 'Password confirmation'],
         ];
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getAllAttributes()
     {
@@ -38,7 +37,7 @@ class RepeatedType extends ParentType
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function createChildren()
     {
@@ -51,10 +50,10 @@ class RepeatedType extends ParentType
 
         $form = $this->parent->getFormBuilder()->plain([
             'name' => $this->parent->getName(),
-            'model' => $this->parent->getModel()
+            'model' => $this->parent->getModel(),
         ])
-        ->add($firstName, $this->getOption('type'), $this->getOption('first_options'))
-        ->add($secondName, $this->getOption('type'), $this->getOption('second_options'));
+            ->add($firstName, $this->getOption('type'), $this->getOption('first_options'))
+            ->add($secondName, $this->getOption('type'), $this->getOption('second_options'));
 
         $this->children['first'] = $form->getField($firstName);
         $this->children['second'] = $form->getField($secondName);

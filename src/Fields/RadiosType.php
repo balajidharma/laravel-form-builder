@@ -2,8 +2,6 @@
 
 namespace BalajiDharma\LaravelFormBuilder\Fields;
 
-use Illuminate\Database\Eloquent\Collection;
-
 class RadiosType extends FormField
 {
     protected $valueProperty = 'selected';
@@ -18,7 +16,7 @@ class RadiosType extends FormField
         return [
             'choices' => [],
             'option_attributes' => [],
-            'selected' => null
+            'selected' => null,
         ];
     }
 }

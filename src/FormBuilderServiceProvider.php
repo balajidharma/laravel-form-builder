@@ -2,16 +2,18 @@
 
 namespace BalajiDharma\LaravelFormBuilder;
 
+use BalajiDharma\LaravelFormBuilder\Traits\ValidatesWhenResolved;
 use Illuminate\Support\ServiceProvider;
 use InvalidArgumentException;
-use BalajiDharma\LaravelFormBuilder\Traits\ValidatesWhenResolved;
-use BalajiDharma\LaravelFormBuilder\Form;
 
 class FormBuilderServiceProvider extends ServiceProvider
 {
     protected const HTML_ABSTRACT = 'html';
+
     protected const FORM_ABSTRACT = 'form';
+
     protected const BUILDER_ABSTRACT = 'laravel-form-builder';
+
     protected const HELPER_ABSTRACT = 'laravel-form-helper';
 
     /**
@@ -43,6 +45,7 @@ class FormBuilderServiceProvider extends ServiceProvider
         $this->app->singleton($abstract, function ($app) use ($formBuilderClass) {
             $formBuilder = new $formBuilderClass($app, $app[static::HELPER_ABSTRACT], $app['events']);
             $formBuilder->setFormClass($this->getPlainFormClass());
+
             return $formBuilder;
         });
 
@@ -144,12 +147,12 @@ class FormBuilderServiceProvider extends ServiceProvider
 
         $class = $this->app['config']->get('laravel-form-builder.form_builder_class', $defaultClass);
 
-        if (!class_exists($class)) {
+        if (! class_exists($class)) {
             throw new InvalidArgumentException("Class {$class} does not exist");
         }
 
-        if ($class !== $expectedClass && !is_subclass_of($class, $expectedClass)) {
-            throw new InvalidArgumentException("Class {$class} must extend " . $expectedClass);
+        if ($class !== $expectedClass && ! is_subclass_of($class, $expectedClass)) {
+            throw new InvalidArgumentException("Class {$class} must extend ".$expectedClass);
         }
 
         return $class;
@@ -165,12 +168,12 @@ class FormBuilderServiceProvider extends ServiceProvider
 
         $class = $this->app['config']->get('laravel-form-builder.form_helper_class', $defaultClass);
 
-        if (!class_exists($class)) {
+        if (! class_exists($class)) {
             throw new InvalidArgumentException("Class {$class} does not exist");
         }
 
-        if ($class !== $expectedClass && !is_subclass_of($class, $expectedClass)) {
-            throw new InvalidArgumentException("Class {$class} must extend " . $expectedClass);
+        if ($class !== $expectedClass && ! is_subclass_of($class, $expectedClass)) {
+            throw new InvalidArgumentException("Class {$class} must extend ".$expectedClass);
         }
 
         return $class;
