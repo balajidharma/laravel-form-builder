@@ -10,6 +10,12 @@
 
 Laravel Form builder is forked from [kristijanhusak/laravel-form-builder](https://github.com/kristijanhusak/laravel-form-builder). 
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Demo](#demo)
+- [Quick start](#quick-start)
+
 
 ## Installation
 
@@ -31,26 +37,8 @@ Or manually by modifying `composer.json` file:
 
 And run `composer install`
 
-Then add Service provider to `config/app.php`
-
-``` php
-    'providers' => [
-        // ...
-        BalajiDharma\LaravelFormBuilder\FormBuilderServiceProvider::class
-    ]
-```
-
-And Facade (also in `config/app.php`)
-
-``` php
-    'aliases' => [
-        // ...
-        'FormBuilder' => BalajiDharma\LaravelFormBuilder\Facades\FormBuilder::class
-    ]
-
-```
-
-**Notice**: This package will add `laravelcollective/html` package and load aliases (Form, Html) if they do not exist in the IoC container.
+## Demo
+The "[Basic Laravel Admin Penel](https://github.com/balajidharma/basic-laravel-admin-panel)" starter kit come with Laravel Menu
 
 
 ## Quick start
@@ -343,13 +331,3 @@ class SongsController extends BaseController {
     }
 }
 ```
-
-
-## Contributing
-
-Project follows [PSR-2](http://www.php-fig.org/psr/psr-2/) standard and it's covered with PHPUnit tests.
-Pull requests should include tests and pass [Travis CI](https://travis-ci.org/balajidharma/laravel-form-builder) build.
-
-To run tests first install dependencies with `composer install`.
-
-After that tests can be run with `vendor/bin/phpunit`
