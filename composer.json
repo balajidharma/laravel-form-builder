@@ -1,47 +1,30 @@
 {
-    "name": "kris/laravel-form-builder",
-    "description": "Laravel form builder - symfony like",
-    "keywords": ["laravel", "form", "builder","symfony"],
+    "name": "balajidharma/laravel-form-builder",
+    "description": "Laravel form builder",
     "license": "MIT",
+    "keywords": ["form-builder","laravel","laravel-form-builder", "laravel-framework"],
     "authors": [
         {
-            "name": "Kristijan Husak",
-            "email": "husakkristijan@gmail.com"
+            "name": "Balaji Dharmaraja",
+            "homepage": "https://github.com/balajidharma"
         }
     ],
     "require": {
-        "php": ">=7.1",
-        "laravelcollective/html": "^5.6|^6|^7|^8|^9",
-        "illuminate/database": "^5.6@dev|^6|^7|^8|^9",
-        "illuminate/validation": "^5.6@dev|^6|^7|^8|^9"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^6.13"
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.16.x-dev"
-        },
-        "laravel": {
-            "providers": [
-                "Kris\\LaravelFormBuilder\\FormBuilderServiceProvider"
-            ],
-            "aliases": {
-                "FormBuilder": "Kris\\LaravelFormBuilder\\Facades\\FormBuilder"
-            }
-        }
+        "illuminate/support": "^10.0|^11.0"
     },
     "autoload": {
-        "psr-0": {
-            "Kris\\LaravelFormBuilder": "src/"
+        "psr-4": {
+            "BalajiDharma\\LaravelFormBuilder\\": "src"
         },
-        "classmap": [
-            "tests/FormBuilderTestCase.php"
-        ],
         "files": [
             "src/helpers.php"
         ]
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BalajiDharma\\LaravelFormBuilder\\FormBuilderServiceProvider"
+            ]
+        }
+    }
 }

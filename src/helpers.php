@@ -1,7 +1,7 @@
 <?php
 
-use Kris\LaravelFormBuilder\Fields\FormField;
-use Kris\LaravelFormBuilder\Form;
+use BalajiDharma\LaravelFormBuilder\Fields\FormField;
+use BalajiDharma\LaravelFormBuilder\Form;
 
 if(!function_exists('getFormBuilderViewPath'))
 {
@@ -13,7 +13,7 @@ if(!function_exists('getFormBuilderViewPath'))
             throw new Exception('You should use only *.php files with this function');
 
         $path = base_path('resources/views/vendor/laravel-form-builder/'.$fileName);
-        return file_exists($path) ? $path : __DIR__.'/views/'.$fileName;
+        return file_exists($path) ? $path : __DIR__.'/../resources/views/'.$fileName;
     }
 }
 
