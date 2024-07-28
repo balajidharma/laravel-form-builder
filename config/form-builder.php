@@ -39,7 +39,7 @@ return [
         //        'wrapper_class'  => 'choice-wrapper-class',
         //        'label_class'    => 'choice-label-class',
         //        'field_class'    => 'choice-field-class'
-        //
+        //        'choices_wrapper' => ['class' => 'choices-wrapper-class'],
         //        # For choice type you may overwrite default choice options for each variant (checkbox, radio or select)
         //        'checkbox'       => [
         //            'wrapper_class' => 'choice-checkbox-wrapper-class',
