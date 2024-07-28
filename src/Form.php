@@ -59,6 +59,14 @@ class Form
     protected $formConfig = [];
 
     /**
+     * Form configuration name.
+     *
+     * @var array
+     */
+    protected $formConfigName = null;
+
+
+    /**
      * Additional data which can be used to build fields.
      *
      * @var array
@@ -542,7 +550,7 @@ class Form
      */
     public function getConfig($key = null, $default = null)
     {
-        return $this->formHelper->getConfig($key, $default, $this->formConfig);
+        return $this->formHelper->getConfig($key, $default, $this->formConfig, $this->formConfigName);
     }
 
     /**

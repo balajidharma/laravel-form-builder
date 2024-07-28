@@ -77,7 +77,7 @@ class FormBuilderServiceProvider extends ServiceProvider
         $formHelperClass = $this->getFormHelperClass();
 
         $this->app->singleton($abstract, function ($app) use ($formHelperClass) {
-            $configuration = $app->make(ConfigFactory::class)->formConfig();
+            $configuration = $app->make(ConfigFactory::class);
 
             return new $formHelperClass($app['view'], $app['translator'], $configuration);
         });

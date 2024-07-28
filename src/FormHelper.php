@@ -87,11 +87,11 @@ class FormHelper
      */
     private $customTypes = [];
 
-    public function __construct(View $view, Translator $translator, array $config = [])
+    public function __construct(View $view, Translator $translator, ConfigFactory $configFactory)
     {
         $this->view = $view;
         $this->translator = $translator;
-        $this->config = $config;
+        $this->config = $configFactory;
         $this->loadCustomTypes();
     }
 
@@ -101,9 +101,9 @@ class FormHelper
      * @param  array  $customConfig
      * @return mixed
      */
-    public function getConfig($key = null, $default = null, $customConfig = [])
+    public function getConfig($key = null, $default = null, $customConfig = [], ?string $form = null)
     {
-        $config = array_replace_recursive($this->config, $customConfig);
+        $config = array_replace_recursive($this->config->formConfig($form), $customConfig);
 
         if ($key) {
             return Arr::get($config, $key, $default);
