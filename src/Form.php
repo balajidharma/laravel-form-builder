@@ -152,13 +152,6 @@ class Form
     protected $errorBag = 'default';
 
     /**
-     * Define the isEdit for the form.
-     *
-     * @var bool
-     */
-    protected $isEdit = false;
-
-    /**
      * The form methods that should be spoofed, in uppercase.
      *
      * @var array
@@ -838,46 +831,11 @@ class Form
     /**
      * Add any aditional data that field needs (ex. array of choices).
      *
-     * @deprecated deprecated since 1.6.20, will be removed in 1.7 - use 3rd param on create, or 2nd on plain method to pass data
-     * will be switched to protected in 1.7.
-     *
-     * @param  string  $name
      * @param  mixed  $data
      */
-    public function setData($name, $data)
+    public function setData($data)
     {
-        $this->data[$name] = $data;
-    }
-
-    /**
-     * Get single additional data.
-     *
-     * @param  string  $name
-     * @param  null  $default
-     * @return mixed
-     */
-    public function getData($name = null, $default = null)
-    {
-        if (is_null($name)) {
-            return $this->data;
-        }
-
-        return Arr::get($this->data, $name, $default);
-    }
-
-    /**
-     * Add multiple peices of data at once.
-     *
-     * @deprecated deprecated since 1.6.12, will be removed in 1.7 - use 3rd param on create, or 2nd on plain method to pass data
-     * will be switched to protected in 1.7.
-     *
-     * @return $this
-     **/
-    public function addData(array $data)
-    {
-        foreach ($data as $key => $value) {
-            $this->setData($key, $value);
-        }
+        $this->data = $data;
 
         return $this;
     }
@@ -1509,27 +1467,6 @@ class Form
     }
 
     /**
-     * Get the form isEdit
-     *
-     * @return bool
-     */
-    public function getIsEdit()
-    {
-        return $this->isEdit;
-    }
-
-    /**
-     * Set the form isEdit
-     *
-     * @param  bool  $isEdit
-     * @return void
-     */
-    public function setIsEdit($isEdit)
-    {
-        $this->isEdit = $isEdit;
-    }
-
-    /**
      * Get the form appendage for the given method.
      *
      * @param  string  $method
@@ -1545,9 +1482,6 @@ class Form
         if (in_array($method, $this->spoofedMethods)) {
             $this->add('_method', 'hidden', ['value' => $method, 'label' => false, 'wrapper' => false]);
             $this->setFormOption('method', 'POST');
-            if ($method === 'PUT') {
-                $this->setIsEdit(true);
-            }
         }
 
         // If the method is something other than GET we will go ahead and attach the

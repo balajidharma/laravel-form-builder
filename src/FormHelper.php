@@ -3,7 +3,7 @@
 namespace BalajiDharma\LaravelFormBuilder;
 
 use BalajiDharma\LaravelFormBuilder\Events\AfterCollectingFieldRules;
-use BalajiDharma\LaravelFormBuilder\Fields\CheckboxType;
+use BalajiDharma\LaravelFormBuilder\Fields\CheckableType;
 use BalajiDharma\LaravelFormBuilder\Fields\FormField;
 use Illuminate\Contracts\Support\MessageBag;
 use Illuminate\Contracts\View\Factory as View;
@@ -70,11 +70,11 @@ class FormHelper
         'buttongroup' => 'ButtonGroupType',
         'submit' => 'ButtonType',
         'reset' => 'ButtonType',
-        'radios' => 'RadiosType',
-        'checkbox' => 'CheckboxType',
-        'checkboxes' => 'CheckboxesType',
+        'radio' => 'CheckableType',
+        'checkbox' => 'CheckableType',
+        'choice' => 'ChoiceType',
         'form' => 'ChildFormType',
-        'datalist' => 'DatalistType',
+        'entity' => 'EntityType',
         'collection' => 'CollectionType',
         'repeated' => 'RepeatedType',
         'static' => 'StaticType',
@@ -232,7 +232,7 @@ class FormHelper
 
     /**
      * @param  object  $model
-     * @return object|null
+     * @return object|array|null
      */
     public function convertModelToArray($model)
     {
@@ -300,7 +300,7 @@ class FormHelper
 
     /**
      * @param  FormField[]  $fields
-     * @return array
+     * @return Rules
      */
     public function mergeFieldsRules($fields)
     {
@@ -335,7 +335,7 @@ class FormHelper
     {
         $fields = [];
         foreach ($form->getFields() as $name => $field) {
-            if ($field instanceof CheckboxType && $field->getOption('value') == CheckboxType::DEFAULT_VALUE) {
+            if ($field instanceof CheckableType && $field->getOption('value') == CheckableType::DEFAULT_VALUE) {
                 $fields[] = $this->transformToDotSyntax($name);
             }
         }
@@ -432,7 +432,7 @@ class FormHelper
      */
     public function transformToDotSyntax($string)
     {
-        return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $string);
+        return str_replace(['.', '[]', '[', ']'], ['_', '', '.', ''], $string ?? '');
     }
 
     /**

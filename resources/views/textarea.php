@@ -5,11 +5,14 @@
 <?php } ?>
 
 <?php if ($showLabel && $options['label'] !== false && $options['label_show']) { ?>
-    <?= Form::customLabel($name, $options['label'], $options['label_attr']) ?>
+    <?php include labelBlockPath() ?>
 <?php } ?>
 
 <?php if ($showField) { ?>
-    <?= Form::textarea($name, $options['value'], $options['attr']) ?>
+
+    <textarea name="<?= $name ?>" 
+    <?= render_form_attributes($options['attr'] ?? []); ?>
+    ><?= $options['value'] ?></textarea>
 
     <?php include helpBlockPath(); ?>
 <?php } ?>

@@ -188,7 +188,7 @@ abstract class FormBuilderTestCase extends TestCase
         $this->request->setLaravelSession($this->app['session.store']);
         $this->validatorFactory = $this->app['validator'];
         $this->eventDispatcher = $this->app['events'];
-        $this->model = new TestModel();
+        $this->model = new TestModel;
         $this->config = include __DIR__.'/../src/config/config.php';
 
         $this->formHelper = new FormHelper($this->view, $this->translator, $this->config);
@@ -196,7 +196,7 @@ abstract class FormBuilderTestCase extends TestCase
 
         $this->plainForm = $this->formBuilder->plain();
 
-        $this->filtersResolver = new FilterResolver();
+        $this->filtersResolver = new FilterResolver;
     }
 
     public function tearDown(): void

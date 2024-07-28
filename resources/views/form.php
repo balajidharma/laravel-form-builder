@@ -1,11 +1,9 @@
 <?php if ($showStart) { ?>
     <form action="<?= $formOptions['url'] ?>" method="<?= $formOptions['method'] ?>"
-    <?php
-    if (isset($formOptions['attr'])) {
-        foreach ($formOptions['attr'] as $attr => $val) { ?>
-        <?php echo $attr.'="'.$val.'"'; ?>
-    <?php }
-        } ?>
+    <?php if (isset($formOptions['files'])) { ?>
+        enctype="multipart/form-data"
+    <?php } ?>
+    <?= render_form_attributes($formOptions['attr'] ?? []); ?>
     >
 <?php } ?>
 

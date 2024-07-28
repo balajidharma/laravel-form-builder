@@ -109,13 +109,13 @@ namespace {
         /** @test */
         public function it_creates_collection_with_child_form_with_correct_model()
         {
-            $model = new DummyEloquentModel();
+            $model = new DummyEloquentModel;
             $form = clone $this->plainForm;
             $form->setModel($model);
 
             $data = new \Illuminate\Support\Collection([
-                new DummyEloquentModel2(),
-                new DummyEloquentModel2(),
+                new DummyEloquentModel2,
+                new DummyEloquentModel2,
             ]);
 
             $options = [
@@ -139,11 +139,11 @@ namespace {
         public function it_creates_collection_with_child_form_with_correct_model_properties()
         {
             $items = new \Illuminate\Support\Collection([
-                (new DummyEloquentModel2())->forceFill(['id' => 1, 'foo' => 'bar']),
-                (new DummyEloquentModel2())->forceFill(['id' => 2, 'foo' => 'baz']),
+                (new DummyEloquentModel2)->forceFill(['id' => 1, 'foo' => 'bar']),
+                (new DummyEloquentModel2)->forceFill(['id' => 2, 'foo' => 'baz']),
             ]);
 
-            $model = (new DummyEloquentModel())->forceFill(['id' => 11]);
+            $model = (new DummyEloquentModel)->forceFill(['id' => 11]);
             $model->setRelation('items', $items);
 
             $form = $this->formBuilder->create('\LaravelFormBuilderCollectionTypeTest\Forms\NamespacedDummyFormCollectionForm', [
@@ -231,7 +231,7 @@ namespace {
         {
             $items = new \Illuminate\Support\Collection([]);
 
-            $model = (new DummyEloquentModel())->forceFill(['id' => 11]);
+            $model = (new DummyEloquentModel)->forceFill(['id' => 11]);
             $model->setRelation('items', $items);
 
             $form = $this->formBuilder->create('\LaravelFormBuilderCollectionTypeTest\Forms\NamespacedDummyFormCollectionForm', [
@@ -247,10 +247,10 @@ namespace {
         public function it_uses_empty_model_for_proto_child_forms()
         {
             $items = new \Illuminate\Support\Collection([
-                (new DummyEloquentModel2())->forceFill(['id' => 21, 'foo' => 'bar 21']),
+                (new DummyEloquentModel2)->forceFill(['id' => 21, 'foo' => 'bar 21']),
             ]);
 
-            $model = (new DummyEloquentModel())->forceFill(['id' => 21]);
+            $model = (new DummyEloquentModel)->forceFill(['id' => 21]);
             $model->setRelation('items', $items);
 
             $form = $this->formBuilder->create('\LaravelFormBuilderCollectionTypeTest\Forms\NamespacedDummyFormCollectionForm', [
@@ -267,10 +267,10 @@ namespace {
         public function it_uses_empty_model_for_new_collection_children_after_validation_error()
         {
             $items = new \Illuminate\Support\Collection([
-                (new DummyEloquentModel2())->forceFill(['id' => 31, 'foo' => 'bar31']),
+                (new DummyEloquentModel2)->forceFill(['id' => 31, 'foo' => 'bar31']),
             ]);
 
-            $model = (new DummyEloquentModel())->forceFill(['id' => 31]);
+            $model = (new DummyEloquentModel)->forceFill(['id' => 31]);
             $model->setRelation('items', $items);
 
             $this->session([
@@ -323,7 +323,7 @@ namespace LaravelFormBuilderCollectionTypeTest\Forms {
                 'prefer_input' => true,
                 'empty_row' => true,
                 'empty_model' => function () {
-                    return (new DummyEloquentModel2())->forceFill(['_custom' => true]);
+                    return (new DummyEloquentModel2)->forceFill(['_custom' => true]);
                 },
                 'options' => [
                     'class' => NamespacedDummyFormCollectionChildForm::class,

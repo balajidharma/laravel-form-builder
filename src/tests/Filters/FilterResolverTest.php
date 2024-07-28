@@ -18,7 +18,7 @@ class FilterResolverTest extends FormBuilderTestCase
     public function it_resolve_object_based_filter()
     {
         $expected = \Kris\LaravelFormBuilder\Filters\FilterInterface::class;
-        $filterObj = new Trim();
+        $filterObj = new Trim;
         $resolver = $this->filtersResolver;
 
         $resolvedFilterObj = $resolver::instance($filterObj);
@@ -39,7 +39,7 @@ class FilterResolverTest extends FormBuilderTestCase
     {
         $this->expectException(\Kris\LaravelFormBuilder\Filters\Exception\InvalidInstanceException::class);
 
-        $invalidFilterObj = new stdClass();
+        $invalidFilterObj = new stdClass;
         $resolver = $this->filtersResolver;
         $resolver::instance($invalidFilterObj);
     }

@@ -186,7 +186,7 @@ class FormBuilder
     public function setDependenciesAndOptions($instance, array $options = [], array $data = [])
     {
         return $instance
-            ->addData($data)
+            ->setData($data)
             ->setRequest($this->container->make('request'))
             ->setFormHelper($this->formHelper)
             ->setEventDispatcher($this->eventDispatcher)

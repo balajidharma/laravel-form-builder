@@ -5,10 +5,13 @@
 <?php } ?>
 
 <?php if ($showField) { ?>
-    <?= Form::radio($name, $options['value'], $options['checked'], $options['attr']) ?>
+    <input type="radio" name="<?= $name ?>" value="<?= $options['value'] ?>"
+        <?= $options['checked'] ? 'checked' : '' ?>
+        <?= render_form_attributes($options['attr'] ?? []); ?>
+    />
 
     <?php if ($showLabel && $options['label'] !== false && $options['label_show']) { ?>
-        <?= Form::customLabel($name, $options['label'], $options['label_attr']) ?>
+        <?php include labelBlockPath() ?>
     <?php } ?>
 
     <?php include helpBlockPath(); ?>

@@ -36,6 +36,13 @@ if (! function_exists('helpBlockPath')) {
 
 }
 
+if (! function_exists('labelBlockPath')) {
+    function labelBlockPath()
+    {
+        return getFormBuilderViewPath('label.php');
+    }
+}
+
 if (! function_exists('form')) {
 
     function form(Form $form, array $options = [])
@@ -133,4 +140,19 @@ if (! function_exists('form_fields')) {
         return $form->renderForm($options, false, true, false);
     }
 
+}
+
+if (! function_exists('render_form_attributes')) {
+    function render_form_attributes(array $attributes)
+    {
+        if (empty($attributes)) {
+            return '';
+        }
+        $attr = '';
+        foreach ($attributes as $key => $value) {
+            $attr .= $key.'="'.$value.'" ';
+        }
+
+        return $attr;
+    }
 }

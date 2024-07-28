@@ -106,17 +106,6 @@ class FormBuilderServiceProvider extends ServiceProvider
                 __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-form-builder'),
             ], 'views');
         }
-
-        /*$form = $this->app[static::FORM_ABSTRACT];
-
-        $form->macro('customLabel', function($name, $value, $options = [], $escape_html = true) use ($form) {
-            if (isset($options['for']) && $for = $options['for']) {
-                unset($options['for']);
-                return $form->label($for, $value, $options, $escape_html);
-            }
-
-            return $form->label($name, $value, $options, $escape_html);
-        });*/
     }
 
     /**
@@ -134,7 +123,7 @@ class FormBuilderServiceProvider extends ServiceProvider
      */
     protected function getPlainFormClass()
     {
-        return $this->app['config']->get('laravel-form-builder.plain_form_class', Form::class);
+        return $this->app['config']->get('form-builder.plain_form_class', Form::class);
     }
 
     /**
@@ -145,7 +134,7 @@ class FormBuilderServiceProvider extends ServiceProvider
         $expectedClass = FormBuilder::class;
         $defaultClass = FormBuilder::class;
 
-        $class = $this->app['config']->get('laravel-form-builder.form_builder_class', $defaultClass);
+        $class = $this->app['config']->get('form-builder.form_builder_class', $defaultClass);
 
         if (! class_exists($class)) {
             throw new InvalidArgumentException("Class {$class} does not exist");
@@ -166,7 +155,7 @@ class FormBuilderServiceProvider extends ServiceProvider
         $expectedClass = FormHelper::class;
         $defaultClass = FormHelper::class;
 
-        $class = $this->app['config']->get('laravel-form-builder.form_helper_class', $defaultClass);
+        $class = $this->app['config']->get('form-builder.form_helper_class', $defaultClass);
 
         if (! class_exists($class)) {
             throw new InvalidArgumentException("Class {$class} does not exist");

@@ -150,7 +150,7 @@ namespace {
         /** @test */
         public function it_appends_default_namespace_from_config_on_building()
         {
-            $form = new LaravelFormBuilderTest\Forms\NamespacedDummyForm();
+            $form = new LaravelFormBuilderTest\Forms\NamespacedDummyForm;
             $config = $this->config;
             $config['default_namespace'] = 'LaravelFormBuilderTest\Forms';
             $formHelper = new FormHelper($this->view, $this->translator, $config);

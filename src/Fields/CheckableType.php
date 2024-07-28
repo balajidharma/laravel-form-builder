@@ -2,7 +2,7 @@
 
 namespace BalajiDharma\LaravelFormBuilder\Fields;
 
-class CheckboxType extends FormField
+class CheckableType extends FormField
 {
     const DEFAULT_VALUE = 1;
 
@@ -16,7 +16,7 @@ class CheckboxType extends FormField
      */
     protected function getTemplate()
     {
-        return 'checkbox';
+        return $this->type;
     }
 
     /**

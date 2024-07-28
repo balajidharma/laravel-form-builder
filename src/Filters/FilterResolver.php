@@ -29,14 +29,14 @@ class FilterResolver
         }
 
         if (class_exists($filter)) {
-            return self::validateFilterInstance(new $filter());
+            return self::validateFilterInstance(new $filter);
         }
 
         if ($filter = FilterResolver::resolveFromCollection($filter)) {
             return self::validateFilterInstance($filter);
         }
 
-        $ex = new UnableToResolveFilterException();
+        $ex = new UnableToResolveFilterException;
         throw $ex;
     }
 
@@ -48,7 +48,7 @@ class FilterResolver
     private static function validateFilterInstance($filter)
     {
         if (! $filter instanceof FilterInterface) {
-            $ex = new InvalidInstanceException();
+            $ex = new InvalidInstanceException;
             throw $ex;
         }
 

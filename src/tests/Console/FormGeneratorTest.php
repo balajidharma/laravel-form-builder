@@ -12,7 +12,7 @@ class FormGeneratorTest extends TestCase
 
     public function setUp(): void
     {
-        $this->formGenerator = new FormGenerator();
+        $this->formGenerator = new FormGenerator;
     }
 
     /** @test */

@@ -5,14 +5,22 @@
 <?php } ?>
 
 <?php if ($showField) { ?>
-    <?= Form::checkbox($name, $options['value'], $options['checked'], $options['attr']) ?>
-
     <?php if ($showLabel && $options['label'] !== false && $options['label_show']) { ?>
-        <?= Form::customLabel($name, $options['label'], $options['label_attr']) ?>
-    <?php } ?>
-
+    <label
+    <?php
+    if (isset($options['label_attr'])) {
+        foreach ($options['label_attr'] as $attr => $val) { ?>
+        <?php echo $attr.'="'.$val.'"'; ?>
+    <?php }
+        } ?>
+    >
+    <input type="checkbox" name="<?= $name ?>" value="<?= $options['value'] ?>" <?= $options['checked'] ? 'checked' : '' ?> 
+    <?= render_form_attributes($options['attr'] ?? []); ?>
+    />
+    <?= $options['label'] ?></label>
     <?php include helpBlockPath(); ?>
-<?php } ?>
+    <?php }
+    }?>
 
 <?php include errorBlockPath(); ?>
 

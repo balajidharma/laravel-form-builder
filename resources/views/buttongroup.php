@@ -7,7 +7,9 @@
     <?php } ?>
 
         <?php foreach ($options['buttons'] as $button) { ?>
-            <?= Form::button($button['label'], $button['attr']) ?>
+            <button type="<?= $type ?>"
+            <?= render_form_attributes($options['attr'] ?? []); ?>
+            ><?= $options['label'] ?></button>
         <?php } ?>
 
     <?php if (! $options['splitted']) { ?>

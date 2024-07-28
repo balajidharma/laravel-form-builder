@@ -5,24 +5,12 @@
 <?php } ?>
 
 <?php if ($showLabel && $options['label'] !== false && $options['label_show']) { ?>
-    <label for="<?= $name ?>"
-    <?php
-    if (isset($options['label_attr'])) {
-        foreach ($options['label_attr'] as $attr => $val) { ?>
-        <?php echo $attr.'="'.$val.'"'; ?>
-    <?php }
-        } ?>
-    ><?= $options['label'] ?></label>
+    <?php include labelBlockPath() ?>
 <?php } ?>
 
 <?php if ($showField) { ?>
     <input type="<?= $type ?>" name="<?= $name ?>"  value="<?= $options['value'] ?>"
-    <?php
-        if (isset($options['attr']) && $type != 'hidden') {
-            foreach ($options['attr'] as $attr => $val) { ?>
-        <?php echo $attr.'="'.$val.'"'; ?>
-    <?php }
-            } ?>
+    <?= render_form_attributes($options['attr'] ?? []); ?>
     />
 
     <?php include helpBlockPath(); ?>

@@ -3,12 +3,7 @@
 <?php } ?>
 
 <button type="<?= $type ?>"
-    <?php
-    if (isset($options['attr']) && $type != 'hidden') {
-        foreach ($options['attr'] as $attr => $val) { ?>
-        <?php echo $attr.'="'.$val.'"'; ?>
-    <?php }
-        } ?>
+    <?= render_form_attributes($options['attr'] ?? []); ?>
 ><?= $options['label'] ?></button>
 <?php include helpBlockPath(); ?>
 

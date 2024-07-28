@@ -1127,11 +1127,11 @@ class FormTest extends FormBuilderTestCase
 
         $expected = [
             'test_field' => [
-                'Trim' => new \Kris\LaravelFormBuilder\Filters\Collection\Trim(),
-                'Uppercase' => new \Kris\LaravelFormBuilder\Filters\Collection\Uppercase(),
+                'Trim' => new \Kris\LaravelFormBuilder\Filters\Collection\Trim,
+                'Uppercase' => new \Kris\LaravelFormBuilder\Filters\Collection\Uppercase,
             ],
             'test_field2' => [
-                'Uppercase' => new \Kris\LaravelFormBuilder\Filters\Collection\Uppercase(),
+                'Uppercase' => new \Kris\LaravelFormBuilder\Filters\Collection\Uppercase,
             ],
         ];
 
