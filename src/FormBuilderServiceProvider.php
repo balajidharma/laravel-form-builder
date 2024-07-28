@@ -100,7 +100,7 @@ class FormBuilderServiceProvider extends ServiceProvider
         if (app()->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/form-builder.php' => config_path('form-builder.php'),
-            ], ['config']);
+            ], ['config', 'laravel-form-builder', 'admin-core', 'admin-core-config']);
 
             $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-form-builder'),
