@@ -65,7 +65,6 @@ class Form
      */
     protected $formConfigName = null;
 
-
     /**
      * Additional data which can be used to build fields.
      *
