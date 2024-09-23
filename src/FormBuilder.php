@@ -170,6 +170,8 @@ class FormBuilder
             $data
         );
 
+        $form->getAppendage($form->getMethod());
+
         $this->eventDispatcher->dispatch(new AfterFormCreation($form));
 
         $form->filterFields();
