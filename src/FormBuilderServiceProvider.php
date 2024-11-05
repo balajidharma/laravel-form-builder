@@ -105,6 +105,10 @@ class FormBuilderServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-form-builder'),
             ], 'views');
+
+            $this->publishes([
+                __DIR__.'/../resources/js' => resource_path('js/form-builder'),
+            ], 'js');
         }
     }
 
