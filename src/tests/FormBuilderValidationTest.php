@@ -4,7 +4,7 @@ namespace {
 
     class FormBuilderValidationTest extends FormBuilderTestCase
     {
-        public function setUp(): void
+        protected function setUp(): void
         {
             parent::setUp();
             $this->app
@@ -12,7 +12,7 @@ namespace {
                 ->pushMiddleware('Illuminate\Session\Middleware\StartSession');
         }
 
-        public function testItValidatesWhenResolved()
+        public function test_it_validates_when_resolved()
         {
             Route::post('/test', TestController::class.'@validate');
 
@@ -21,7 +21,7 @@ namespace {
                 ->assertSessionHasErrors(['name']);
         }
 
-        public function testItDoesNotValidateGetRequests()
+        public function test_it_does_not_validate_get_requests()
         {
             Route::get('/test', TestController::class.'@validate');
 

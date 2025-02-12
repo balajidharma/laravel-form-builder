@@ -10,7 +10,7 @@ class FormGeneratorTest extends TestCase
      */
     protected $formGenerator;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         $this->formGenerator = new FormGenerator;
     }

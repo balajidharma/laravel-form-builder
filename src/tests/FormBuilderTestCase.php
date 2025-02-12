@@ -178,7 +178,7 @@ abstract class FormBuilderTestCase extends TestCase
      */
     protected $filtersResolver;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
@@ -199,7 +199,7 @@ abstract class FormBuilderTestCase extends TestCase
         $this->filtersResolver = new FilterResolver;
     }
 
-    public function tearDown(): void
+    protected function tearDown(): void
     {
         $this->view = null;
         $this->request = null;

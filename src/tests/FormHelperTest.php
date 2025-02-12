@@ -71,7 +71,7 @@ class FormHelperTest extends FormBuilderTestCase
     /**
      * @test
      */
-    public function it_throws_InvalidArgumentException_for_non_existing_field_type()
+    public function it_throws_invalid_argument_exception_for_non_existing_field_type()
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -141,7 +141,7 @@ class FormHelperTest extends FormBuilderTestCase
     /**
      * @test
      */
-    public function it_throws_InvalidArgumentException_for_empty_field_name()
+    public function it_throws_invalid_argument_exception_for_empty_field_name()
     {
         $this->expectException(\InvalidArgumentException::class);
 
@@ -151,7 +151,7 @@ class FormHelperTest extends FormBuilderTestCase
     /**
      * @test
      */
-    public function it_throws_InvalidArgumentException_for_reserved_field_names()
+    public function it_throws_invalid_argument_exception_for_reserved_field_names()
     {
         $this->expectException(\InvalidArgumentException::class);
 

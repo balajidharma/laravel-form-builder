@@ -565,7 +565,7 @@ class FormTest extends FormBuilderTestCase
     }
 
     /** @test */
-    public function it_throws_InvalidArgumentException_on_non_existing_property()
+    public function it_throws_invalid_argument_exception_on_non_existing_property()
     {
         $exceptionThrown = false;
 
@@ -824,7 +824,7 @@ class FormTest extends FormBuilderTestCase
     }
 
     /** @test */
-    public function it_works_when_setModel_method_is_called()
+    public function it_works_when_set_model_method_is_called()
     {
         $customForm = $this->formBuilder->create('CustomDummyForm')->setModel([
             'title' => 'john doe',
